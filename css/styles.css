@@ -16,7 +16,7 @@ body{
     width: 85%;
     margin: 0 auto;
     padding: 10px 0;
-    padding-bottom: 100px;
+    padding-bottom: 110px;
 }
 
 /* --------------- Navigation  -------------------*/
@@ -59,7 +59,7 @@ body .home_page{
 }
 .home_page h1{  
     /* font-family: 'Ruda', sans-serif; */
-    font-size: 80px;
+    font-size: 60px;
     color:white;
     font-weight: bold;
     text-align: center;
@@ -95,7 +95,7 @@ a.center-text {
 
 /*---------------- Display Store Page --------------------------*/
 .displayStores h1{
-    font-size: 80px;
+    font-size: 60px;
     color: black;
     font-weight: bold;
     text-align: center;
@@ -108,6 +108,25 @@ a.center-text {
     padding-bottom: 0%;
 }
 
+.flex-container {
+    display: flex;
+    background-color: #3C362A;
+    justify-content: center;
+}
+.flex-container > div {
+    background-color: lightyellow;
+    margin: 15px;
+    padding: 10px;
+    justify-content: space-around;
+}
+.flex-container h2 {
+    font-size: 30px;
+    text-align: center;
+}
+.flex-container p {
+    font-size: 20px;
+    text-align: center;
+}
 
 /* ---------------  Responsive   ----------------------*/
 @media screen and (max-width: 600px) {
