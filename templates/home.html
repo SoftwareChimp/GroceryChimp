@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Home</title>
+    <!-- CSS STYLE SHEETS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <!-- ***********************  NAVIGATION  *********************** -->
+        <section class="home_page">
+        <header>
+            <div class="topnav">
+                    <a class="active" href="index.html">Home</a>
+                    <a class="active" href="">Cart</a>
+                    <a class="active" href="">Sign in</a>
+                    <input type="text" placeholder="Search..">
+            </div>
+        </header>
+             <div class="content-wrap">
+                <h1>Welcome to GroceryChimp Shopping!</h1>
+                <img src="{% static 'images/logo.jpg' %}" alt="GroceryChimp_Logo" class="center">
+                <a class="btn" href="#displayStores" class="center-text">See Grocery Stores</a>
+            </div>
+        </section>
+        <section class="displayStores" id="displayStores">
+            <div class="content-wrap">
+                <h1> List of the online stores </h1>
+                <img src="{% static 'images/logo_grocery.png' %}" alt="GroceryChimp_Logo" class="center">
+
+                <div class="flex-container">
+                {% for store in stores %}
+                    {% ifequal forloop.counter0|divisibleby:"4" True %}
+                    {% if forloop.counter0 != 0 %}
+                        </div>
+                        <div class="flex-container">
+                    {% endif %}
+                    {% endifequal %}
+                    <div>
+                        <h2>{{store.name}}</h2>
+                        <p>{{store.address}}</p>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
