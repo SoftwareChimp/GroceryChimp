@@ -14,7 +14,7 @@
         <section class="home_page">
         <header>
             <div class="topnav">
-                    <a class="active" href="index.html">Home</a>
+                    <a class="active" href="/">Home</a>
                     <a class="active" href="">Cart</a>
                     <a class="active" href="">Sign in</a>
                     <input type="text" placeholder="Search..">
@@ -39,7 +39,7 @@
                         <div class="flex-container">
                     {% endif %}
                     {% endifequal %}
-                    <div>
+                    <div style="cursor: pointer;" onclick="window.location='/stores/{{store.store_id}}'";>
                         <h2>{{store.store_name}}</h2>
                         <p>{{store.store_address}}</p>
                     </div>
