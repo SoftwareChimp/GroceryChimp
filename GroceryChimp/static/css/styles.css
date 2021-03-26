@@ -86,7 +86,7 @@ body .home_page{
 }
 .home_page .btn:hover {
     background: #685B3B;
-  }
+}
 a.center-text {
     display: block;
 }
@@ -169,4 +169,80 @@ a.center-text {
         font-size: 14px;
     }
     
+}
+
+
+/* --------------- Store Page  -------------------*/
+.store_page{
+    text-align: center;
+    /* background-image: url(../images/displyStores_bg.png);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    background-color: #fabc49;
+    color: black;
+    font-family: 'Inconsolata', monospace;
+}
+.store_page h1{
+    font-size: 60px;
+    color: #fff;
+}
+.store_page p {
+    font-size: 40px;
+    color: #fff;
+}
+.store {
+    margin-top: 0px;
+    background-color: #342D1D;
+    border-radius: 10%;
+    padding-top: 1px;
+    margin-top: 20px;
+}
+.store img {
+    width: 1147px;
+    margin-top: 10px;
+}
+.btn_linkToStore {
+    color: #342D1D;
+    background: #fabc49;
+    text-decoration: none;
+    padding-left: 400px;
+    padding-right: 400px;
+    font-size: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.btn_linkToStore:hover {
+    background:  #685B3B;
+    color: #fabc49;
+}
+.store_page h3 {
+    color: #F7FFF7;
+    background: #342D1D;
+    border-radius: 30%;
+    padding-left: 250px;
+    padding-right: 250px;
+    font-size: 35px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+.flex-container-items {
+    font-size: 25px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #342D1D;
+    padding: 20px, 20px;
+    align-items: center;
+}
+.flex-container-items> div {
+    background-color: #fabc49;
+    width: 1000px;
+    margin: 5px;
+    text-align: center;
+    line-height: 95px;
+    padding: 10px;
+    flex: 1 1 0;
+    width: 0;
 }
