@@ -2,7 +2,7 @@ import json
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from storesdisplay.models import Stores, User
+from storesdisplay.models import Stores, User, Inventory, Products
 
 
 # Create your views here.
@@ -16,10 +16,20 @@ def store_view(request, *args, **kwargs):
     context = {
         "store_name": store.store_name,
         "store_address": store.store_address,
-        "products": ["Product1", "Product2", "Product3", "Product4", "Product5"]
+        "products": []
     }
 
     # GET RANDOM 5 PRODUCTS HERE
+    inventory = Inventory.objects.filter(store_id__iexact=kwargs["store_id"])
+    counter = 0
+    for item in inventory:
+        counter += 1
+        product = Products.objects.get(product_id__iexact=item.product_id)
+        context["products"].append(product.product_name)
+
+        # STOP LOOPING AFTER 5 ITEMS
+        if counter >= 5:
+            break
 
     # DISPLAY PAGE
     return render(request, "store.html", context)
