@@ -3,6 +3,10 @@
 <html lang="en">
 <head>
     <title>Home</title>
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'javascript/account_management.js' %}"></script>
+
     <!-- CSS STYLE SHEETS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -16,7 +20,7 @@
             <div class="topnav">
                     <a class="active" href="/">Home</a>
                     <a class="active" href="">Cart</a>
-                    <a class="active" href="">Sign in</a>
+                    <a id="signin-signout" class="active" href="/signin/">Sign in</a>
                     <input type="text" placeholder="Search..">
             </div>
         </header>
@@ -48,5 +52,8 @@
             </div>
         </section>
     </main>
+    <script>
+        modifySignIn();
+    </script>
 </body>
 </html>

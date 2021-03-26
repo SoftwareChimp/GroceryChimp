@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+{% csrf_token %}
+<html lang="en">
+  <head>
+    <title>Grocery Chimp - Sign Up</title>
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'javascript/csrf.js' %}"></script>
+
+    <!-- CSS STYLE SHEETS -->
+    <link rel="stylesheet" href="{% static 'css/signin_signup.css' %}">
+  </head>
+  <body>
+    <div class="App">
+      <div class="App_Aside">
+        <img class="Logo" src="{% static 'images/logo_grocery.png' %}" alt="Logo"/>
+      </div>
+      <div class="App_Form">
+        <div id="root"></div>
+      </div>
+    </div>
+
+    <!-- REACT COMPONENTS -->
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="{% static 'javascript/SignUpForm.js' %}"></script>
+  </body>
+</html>

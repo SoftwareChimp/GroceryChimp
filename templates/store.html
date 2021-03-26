@@ -1,7 +1,14 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <title>Store Display</title>
+    <title>{{store_name}} - Store Display</title>
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'javascript/account_management.js' %}"></script>
+
+    <!-- CSS STYLE SHEETS -->
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
@@ -13,29 +20,32 @@
             <div class="topnav">
                     <a class="active" href="/">Home</a>
                     <a class="active" href="">Cart</a>
-                    <a class="active" href="">Sign in</a>
+                    <a id="signin-signout" class="active" href="/signin/">Sign in</a>
                     <input type="text" placeholder="Search..">
             </div>
         </header>
         <section class="store_page">
-        <div class="content-wrap">
-            <div class="store">
-                <h1>{{store_name}}</h1>
-                <p>{{store_address}}</p>
-                <a class="btn_linkToStore" href="#store_items" class="center-text">See our grocery items</a>
+            <div class="content-wrap">
+                <div class="store">
+                    <h1>{{store_name}}</h1>
+                    <p>{{store_address}}</p>
+                    <a class="btn_linkToStore" href="#store_items" class="center-text">See our grocery items</a>
 
-                <img src="..\static\images\grocery_bag.png" alt="Grocery Bag" class="center">
-            </div>
-                <h3>Best Sellers</h3>
-        <div> 
-        <div class="content-wrap" id="store_items">
+                    <img src="..\static\images\grocery_bag.png" alt="Grocery Bag" class="center">
+                </div>
+                    <h3>Best Sellers</h3>
+            <div>
+            <div class="content-wrap" id="store_items">
                 <div class="flex-container-items">
                     {% for product in products %}
                         <div>{{product}}</div>
                     {% endfor %}
                 </div>
-        <div class="content-wrap">
+            </div>
         </section> 
     </main>
+    <script>
+        modifySignIn();
+    </script>
 </body>
 </html>
