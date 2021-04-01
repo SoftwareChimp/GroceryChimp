@@ -1,40 +1,51 @@
 <!DOCTYPE html>
-{% load static %}
+<!-- {% load static %} -->
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <title>Home</title>
     <!-- SCRIPTS -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'javascript/account_management.js' %}"></script>
 
     <!-- CSS STYLE SHEETS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- <link rel="stylesheet" href="..\static\css\styles.css"> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
         <!-- ***********************  NAVIGATION  *********************** -->
-        <section class="home_page">
+        <section class="home_page" id="home_page">
         <header>
             <div class="topnav">
-                    <a class="active" href="/">Home</a>
-                    <a class="active" href="">Cart</a>
-                    <a id="signin-signout" class="active" href="/signin/">Sign in</a>
                     <input type="text" placeholder="Search..">
+                    <a id="signin-signout" class="active" href="/signin/">Sign in</a>
+                    <a class="active" href="">Cart</a>
+                    <a class="active" href="/">Home</a>
             </div>
         </header>
              <div class="content-wrap">
-                <h1>Welcome to GroceryChimp Shopping!</h1>
+                <!-- <img src="../static/images/logo_grocery_white.png" alt="GroceryChimp_Logo" class="logo"> -->
                 <img src="{% static 'images/logo.jpg' %}" alt="GroceryChimp_Logo" class="center">
-                <a class="btn" href="#displayStores" class="center-text">See Grocery Stores</a>
-            </div>
+               <dov class="container" >
+                    <h1>Welcome to Grocery Chimp Shopping!</h1>
+                    <p>Grocery Chimp is a fast and convenient home delivery service for groceries and much more.</p>
+                    <a href="#displayStores">
+                        <div class="scroll-down"></div> 
+                    </a>
+               </dov>
         </section>
-        <section class="displayStores" id="displayStores">
-            <div class="content-wrap">
-                <h1> List of the online stores </h1>
-                <img src="{% static 'images/logo_grocery.png' %}" alt="GroceryChimp_Logo" class="center">
 
+        <section class="displayStores" id="displayStores">
+            <div class="content-wrap" class="container">
+                <!-- <img src="../static/images/logo_grocery.png" alt="GroceryChimp_Logo" class="logo_displayStores"> -->
+                <img src="{% static 'images/logo_grocery.png' %}" alt="GroceryChimp_Logo" class="center">
+                <div class="container">
+                <h1> List of the online stores </h1>
                 <div class="flex-container">
                 {% for store in stores %}
                     {% ifequal forloop.counter0|divisibleby:"4" True %}
@@ -48,6 +59,7 @@
                         <p>{{store.store_address}}</p>
                     </div>
                 {% endfor %}
+                </div>
                 </div>
             </div>
         </section>

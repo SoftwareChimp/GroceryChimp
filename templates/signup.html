@@ -2,6 +2,8 @@
 {% load static %}
 {% csrf_token %}
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <head>
     <title>Grocery Chimp - Sign Up</title>
 
@@ -10,12 +12,14 @@
     <script src="{% static 'javascript/csrf.js' %}"></script>
 
     <!-- CSS STYLE SHEETS -->
-    <link rel="stylesheet" href="{% static 'css/signin_signup.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/signin_signup.css' %}"> -->
+    <link rel="stylesheet" href="../static/css/signin_signup.css">
   </head>
   <body>
     <div class="App">
       <div class="App_Aside">
-        <img class="Logo" src="{% static 'images/logo_grocery.png' %}" alt="Logo"/>
+        <!-- <img class="Logo" src="{% static 'images/logo_grocery.png' %}" alt="Logo"/> -->
+        <img class="Logo" src="../static/images/logo_grocery.png" alt="Logo"/>
       </div>
       <div class="App_Form">
         <div id="root"></div>

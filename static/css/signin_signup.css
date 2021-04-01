@@ -92,8 +92,7 @@
 }
 .Logo {
   margin-top: 200px;
-  margin-left: 20px;
-  width: 700px;
+  margin-left: 40px;
 }
 @media screen and (max-width: 600px) {
   .App {
