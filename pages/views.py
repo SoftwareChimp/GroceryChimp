@@ -25,7 +25,7 @@ def store_view(request, *args, **kwargs):
     for item in inventory:
         counter += 1
         product = Products.objects.get(product_id__iexact=item.product_id)
-        context["products"].append(product.product_name)
+        context["products"].append(product)
 
         # STOP LOOPING AFTER 5 ITEMS
         if counter >= 5:

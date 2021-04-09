@@ -10,7 +10,7 @@
     <script src="{% static 'javascript/account_management.js' %}"></script>
 
     <!-- CSS STYLE SHEETS -->
-    <link rel="stylesheet" href="../GroceryChimp/static/css/styles.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
 </head>
@@ -44,8 +44,8 @@
                 <div class="flex-container">
                     {% for product in products %}
                         <div>
-                            <h4>{{product}}</h4>
-                            <p>Price: $12.73</p>
+                            <h4>{{product.product_name}}</h4>
+                            <p>Price: ${{product.price}}</p>
                             <button type="button">ADD TO CART</button>
                         </div>
                     {% endfor %}
