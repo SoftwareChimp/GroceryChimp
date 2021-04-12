@@ -38,19 +38,108 @@
 
         <section class=displayStoreItems id="displayStoreItems">
             <div class="content-wrap">
-            <img src="../static/images/logo_grocery.png" alt="GroceryChimp_Logo" class="logo">
-            <h3>Best Sellers</h3>
+                <img src="../static/images/logo_grocery.png" alt="GroceryChimp_Logo" class="logo">
+                <h3>Best Sellers</h3>
+                    <div class="flex-container">
+                        {% for product in products %}
+                            <div>
+                                <h4>{{product.product_name}}</h4>
+                                <p>Price: ${{product.price}}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class=buttons>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                    </div>
 
-                <div class="flex-container">
-                    {% for product in products %}
-                        <div>
-                            <h4>{{product.product_name}}</h4>
-                            <p>Price: ${{product.price}}</p>
-                            <button type="button">ADD TO CART</button>
+                    <h3 class="product_items-title">List of Our Products</h3>
+                    <div class="product_items">
+                    <div class="container">
+                        <div class="product_item">
+                            <img src="../static/images/green-broccoli.jpg" alt="Product Item" class="item">
+                            <h4>Product Name</h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center">ADD TO CART</button> -->
                         </div>
-                    {% endfor %}
+                        <div class="product_item">
+                            <img src="../static/images/grocery_bag.png" alt="Product Item" class="item">
+                            <h4>Potato Chips Classic Flavored Snacks</h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center
+                            ">ADD TO CART</button> -->
+                        </div>
+                        <div class="product_item">
+                            <img src="../static/images/logo.jpg" alt="Product Item" class="item">
+                            <h4>Product Name Fragrance-Free Lotion </h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center
+                            ">ADD TO CART</button> -->
+                        </div>
+                        <div class="product_item">
+                            <img src="../static/images/store_page_bg.png" alt="Product Item" class="item">
+                            <h4>Product Name</h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center
+                            ">ADD TO CART</button> -->
+                        </div>
+                    </div>
+                    <div class=buttons>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                    </div>
                 </div>
+
                 
+                <div class="product_items">
+                    <div class="container">
+                        <div class="product_item">
+                            <img src="../static/images/green-broccoli.jpg" alt="Product Item" class="item">
+                            <h4>Product Name</h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center">ADD TO CART</button> -->
+                        </div>
+                        <div class="product_item">
+                            <img src="../static/images/grocery_bag.png" alt="Product Item" class="item">
+                            <h4>Potato Chips Classic Flavored Snacks</h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center
+                            ">ADD TO CART</button> -->
+                        </div>
+                        <div class="product_item">
+                            <img src="../static/images/logo.jpg" alt="Product Item" class="item">
+                            <h4>Product Name Fragrance-Free Lotion </h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center
+                            ">ADD TO CART</button> -->
+                        </div>
+                        <div class="product_item">
+                            <img src="../static/images/store_page_bg.png" alt="Product Item" class="item">
+                            <h4>Product Name</h4>
+                            <p>Price: </p>
+                            <!-- <button type="button" class="center
+                            ">ADD TO CART</button> -->
+                        </div>
+                    </div>
+                    <div class=buttons>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                        <button type="button">ADD TO CART</button>
+                    </div>
+                </div>
+
+
+
+
+
+                
+
             </div>
         </section>
     </main>
