@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title>Shopping Cart</title>
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'javascript/account_management.js' %}"></script>
+    <script src="{% static 'javascript/csrf.js' %}"></script>
+
+    <!-- CSS STYLE SHEETS -->
+    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+</body>
+<script>
+    get_cart();
+    function get_cart() {
+        if (isSignedIn()) {
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: JSON.stringify({
+                    user: getUser()
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(data);
+                    document.body.innerHTML += getUser() + "'s Shopping Cart<br><br>";
+                    for (let product of data["success"]) {
+                        document.body.innerHTML += product["name"] + " ($" + product["base_price"] + ")&emsp;x" + product["quantity"] + "&emsp;$" + product["total_price"] + "<br>";
+                    }
+                }
+            });
+        }
+        else {
+            document.body.innerHTML += "You are not signed in.";
+        }
+    }
+</script>
+</html>

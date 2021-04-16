@@ -8,6 +8,7 @@
     <!-- SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'javascript/account_management.js' %}"></script>
+    <script src="{% static 'javascript/csrf.js' %}"></script>
 
     <!-- CSS STYLE SHEETS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -22,17 +23,17 @@
             <div class="topnav">
                 <input type="text" placeholder="Search..">
                 <a id="signin-signout" class="active" href="/signin/">Sign in</a>
-                <a class="active" href="">Cart</a>
+                <a class="active" href="/shopping_cart/">Cart</a>
                 <a class="active" href="/">Home</a>
             </div>
         </header>
             <div class="content-wrap">
                 <img src="../static/images/logo_grocery_white.png" alt="GroceryChimp_Logo" class="logo">
-                <div class="store" >
+                <div class="store">
                     <h1>{{store_name}}</h1>
                     <p>{{store_address}}</p>
                 </div>
-                <a href="#displayStoreItems" class="btn_linkToStore">START YOUR CART<a>
+                <a href="#displayStoreItems" class="btn_linkToStore">START YOUR CART</a>
             </div>
         </section> 
 
@@ -40,111 +41,73 @@
             <div class="content-wrap">
                 <img src="../static/images/logo_grocery.png" alt="GroceryChimp_Logo" class="logo">
                 <h3>Best Sellers</h3>
-                    <div class="flex-container">
-                        {% for product in products %}
-                            <div>
+                <div class="flex-container">
+                    {% for product in best_sellers %}
+                        <div>
+                            <h4>{{product.product_name}}</h4>
+                            <p>Price: ${{product.price}}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class=buttons>
+                    {% for product in best_sellers %}
+                        <button type="button" onclick="add_to_cart('{{product.product_id}}')">ADD TO CART</button>
+                    {% endfor %}
+                </div>
+
+                <h3 class="product_items-title">List of Our Products</h3>
+                <!-- CREATE PRODUCT CONTAINERS -->
+                {% for container in containers %}
+                    <div class="product_items">
+                        <div class="container">
+                            <!-- ADD PRODUCTS TO CONTAINER -->
+                            {% for product in container %}
+                            <div class="product_item">
+                                <img src="{% static product.image_path %}" alt="Product Item" class="item">
                                 <h4>{{product.product_name}}</h4>
                                 <p>Price: ${{product.price}}</p>
                             </div>
-                        {% endfor %}
-                    </div>
-                    <div class=buttons>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                    </div>
-
-                    <h3 class="product_items-title">List of Our Products</h3>
-                    <div class="product_items">
-                    <div class="container">
-                        <div class="product_item">
-                            <img src="../static/images/green-broccoli.jpg" alt="Product Item" class="item">
-                            <h4>Product Name</h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center">ADD TO CART</button> -->
+                            {% endfor %}
                         </div>
-                        <div class="product_item">
-                            <img src="../static/images/grocery_bag.png" alt="Product Item" class="item">
-                            <h4>Potato Chips Classic Flavored Snacks</h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center
-                            ">ADD TO CART</button> -->
-                        </div>
-                        <div class="product_item">
-                            <img src="../static/images/logo.jpg" alt="Product Item" class="item">
-                            <h4>Product Name Fragrance-Free Lotion </h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center
-                            ">ADD TO CART</button> -->
-                        </div>
-                        <div class="product_item">
-                            <img src="../static/images/store_page_bg.png" alt="Product Item" class="item">
-                            <h4>Product Name</h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center
-                            ">ADD TO CART</button> -->
+                        <div class="buttons">
+                            <!-- ADD "ADD TO CART" BUTTONS FOR PRODUCTS -->
+                            {% for product in container %}
+                                <button type="button" onclick="add_to_cart('{{product.product_id}}')">ADD TO CART</button>
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class=buttons>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                    </div>
-                </div>
-
-                
-                <div class="product_items">
-                    <div class="container">
-                        <div class="product_item">
-                            <img src="../static/images/green-broccoli.jpg" alt="Product Item" class="item">
-                            <h4>Product Name</h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center">ADD TO CART</button> -->
-                        </div>
-                        <div class="product_item">
-                            <img src="../static/images/grocery_bag.png" alt="Product Item" class="item">
-                            <h4>Potato Chips Classic Flavored Snacks</h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center
-                            ">ADD TO CART</button> -->
-                        </div>
-                        <div class="product_item">
-                            <img src="../static/images/logo.jpg" alt="Product Item" class="item">
-                            <h4>Product Name Fragrance-Free Lotion </h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center
-                            ">ADD TO CART</button> -->
-                        </div>
-                        <div class="product_item">
-                            <img src="../static/images/store_page_bg.png" alt="Product Item" class="item">
-                            <h4>Product Name</h4>
-                            <p>Price: </p>
-                            <!-- <button type="button" class="center
-                            ">ADD TO CART</button> -->
-                        </div>
-                    </div>
-                    <div class=buttons>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                        <button type="button">ADD TO CART</button>
-                    </div>
-                </div>
-
-
-
-
-
-                
-
+                {% endfor %}
             </div>
         </section>
     </main>
     <script>
         modifySignIn();
+        function add_to_cart(product_id) {
+            if (isSignedIn()) {
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: JSON.stringify({
+                        user: getUser(),
+                        product_id: product_id
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken()
+                    },
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function(data) {
+                        alert("Added " + data["success"]["product"] + " to cart.\nThere is now " + data["success"]["quantity"] + " in your cart.");
+                        console.log(data);
+                    }
+                });
+            }
+            else {
+                alert("You are not signed in.");
+            }
+        }
     </script>
 </body>
 </html>

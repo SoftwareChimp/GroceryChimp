@@ -43,3 +43,8 @@ function modifySignIn() {
         elem.href = "";
     }
 }
+
+function isSignedIn() {
+    const user = getUser();
+    return user;
+}
