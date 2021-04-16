@@ -1,4 +1,4 @@
-![alt text](https://github.com/SoftwareChimp/GroceryChimp/blob/main/static/images/logo.jpg?raw=true)
+![alt text](https://github.com/SoftwareChimp/GroceryChimp/blob/main/GroceryChimp/static/images/logo.jpg?raw=true)
 
 # Grocery Chimp
 
