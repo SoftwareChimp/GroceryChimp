@@ -168,8 +168,13 @@ body .home_page{
     font-weight: bold;
 }
 .flex-container p {
-    font-size: 20px;
+    margin-top: -7px;
+    font-size: 19px;
 }
+.flex-container h2:hover{
+    color: #685B3B;
+}
+
 
 /* --------------- Store Page  -------------------*/
 .store_page{
@@ -345,18 +350,22 @@ body .home_page{
     .displayStores h1{
         font-size: 40px;
     }
-    .flex-container {
-        float: none;
-        display: block;
-        width: 100%;
-        margin: 0;
-        padding: 14px;
-    }
     .flex-container h2 {
-        font-size: 20px;
+        font-size: 19px;
     }
     .flex-container p {
-        font-size: 18px;
+        margin-top: -10px;
+        font-size: 15px;
+    }
+    .flex-container {
+        display: block;
+        text-align: left;
+    }
+    .flex-container > div {
+        width: auto;
+        margin: 0px;
+        padding: 0px;
+        margin-bottom: 2px;
     }
     /* --------------- Store Page  -------------------*/
     .logo .store_page {
@@ -390,19 +399,18 @@ body .home_page{
     .displayStoreItems img {
         margin-bottom: -20px;
     }
-    .displayStoreItems .flex-container> div {
+    .displayStoreItems button {
+        padding: 1px 5px;
+        font-size: 10px;
+        width: auto;
+    }
+    /* .displayStoreItems .flex-container> div {
         flex: 1 1 0;
         width: 0;
         float: none;
         display:inline-block;
         text-align: center;
         margin: 0;
-    }
-    .displayStoreItems button {
-        padding: 1px 5px;
-        font-size: 10px;
-        width: auto;
-    }
-        
+    } */
     
 }
