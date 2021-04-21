@@ -62,19 +62,25 @@
                         <div class="container">
                             <!-- ADD PRODUCTS TO CONTAINER -->
                             {% for product in container %}
-                            <div class="product_item">
+                            <div class="product_item"> 
                                 <img src="{% static product.image_path %}" alt="Product Item" class="item">
                                 <h4>{{product.product_name}}</h4>
                                 <p>Price: ${{product.price}}</p>
+                      
+                                <div class="buttons">
+                                <button type="button" onclick="add_to_cart('{{product.product_id}}')">ADD TO CART</button>
+                                </div>
+
+
                             </div>
                             {% endfor %}
                         </div>
-                        <div class="buttons">
+                        <!-- <div class="buttons"> -->
                             <!-- ADD "ADD TO CART" BUTTONS FOR PRODUCTS -->
-                            {% for product in container %}
-                                <button type="button" onclick="add_to_cart('{{product.product_id}}')">ADD TO CART</button>
-                            {% endfor %}
-                        </div>
+                            <!-- {% for product in container %} -->
+                                <!-- <button type="button" onclick="add_to_cart('{{product.product_id}}')">ADD TO CART</button> -->
+                            <!-- {% endfor %} -->
+                        <!-- </div> -->
                     </div>
                 {% endfor %}
             </div>

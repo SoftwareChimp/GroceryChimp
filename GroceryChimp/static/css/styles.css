@@ -241,13 +241,13 @@ body .home_page{
 .displayStoreItems .flex-container {
     display: flex;
     justify-content: space-evenly;
-    /* border: 1px solid white; */
+    border: 1px solid white;
     padding: 0 5px;
     font-size: 18px;    
     flex-wrap: nowrap;
 }
 .displayStoreItems .flex-container> div {
-    text-align: center;
+    text-align: left;
     flex: 1 1 0;
     width: 0;
     width: 100px;
@@ -259,11 +259,16 @@ body .home_page{
     color: #fff; 
     padding: 13px 20px;
     border-radius: 50px;
+    margin-top: 20px;
+    margin-left: -50px;
+    cursor: pointer;
 }
-.buttons {
+.displayStoreItems button:hover {
+    background-color: #656767;
+}
+.displayStoreItems .buttons {
     display: flex;
     justify-content: space-around;
-    
 }
 /* ---------------  Display Product Items  ----------------------*/
 .product_items img{
@@ -281,15 +286,20 @@ body .home_page{
 .product_items .buttons {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .product_items button{
-    margin-bottom: 20px;
     background-color: #342D1D;
     color: #fff; 
     padding: 10px 40px;
-    margin-top: -30px;
     border-radius: 50px;
+    margin-bottom: 0%;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+.product_items button:hover {
+    background-color: #656767;
 }
 .product_item {
     text-align: left;
@@ -306,8 +316,68 @@ body .home_page{
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 40px;
-    
 }
+/* ---------------  Shopping Cart Page ----------------------*/
+.shopping_cart {
+    /* background-color: #FF4000; */
+    background-color: #FFBA0A;
+}
+.username_shopping_cart {
+    padding: 15px;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+.shopping_cart_item {
+    display: inline-flex;
+    background-color: #fff;
+    margin-bottom: 10px;
+    width: 80%;
+}
+.shopping_cart_item li {
+    display: inline;
+    list-style-type: none;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.incrementButton {
+    background-color: #342D1D;
+    color: #fff; 
+    padding: 5px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.decrementButton {
+    margin-left: 10px;
+    background-color: #342D1D;
+    color: #fff; 
+    padding: 5px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.title_shopping_cart li{
+    font-size: large;
+    list-style-type: none;
+    padding: 100px;
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+}
+.pay_button {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #342D1D;
+    color: #fff; 
+    padding: 15px 50px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+
 
 /* ---------------  Responsive   ----------------------*/
 
@@ -399,18 +469,51 @@ body .home_page{
     .displayStoreItems img {
         margin-bottom: -20px;
     }
+    .displayStoreItems .buttons {
+        margin-left: 40px;
+        justify-content: space-between;
+    }
     .displayStoreItems button {
-        padding: 1px 5px;
+        padding: 5px 5px;
         font-size: 10px;
         width: auto;
     }
-    /* .displayStoreItems .flex-container> div {
-        flex: 1 1 0;
-        width: 0;
-        float: none;
-        display:inline-block;
-        text-align: center;
-        margin: 0;
-    } */
+     /* ---------------  Display Product Items  ----------------------*/
+     .product_items img{
+        width: 224.78px;
+        height: 150.7px;
+        margin-bottom: -40px;
+    }
+    .product_items button{
+        width: 100%;
+        height: 30px;
+        cursor: pointer;
+        border-radius:0%;
+        margin-bottom: -20px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: smaller;
+    }
+    .product_item .buttons {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .product_item {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        border: 1px solid #342D1D;
+        padding: 0 5px;
+        width: 58%;
+        margin-bottom: 50px;
+    }
+    .product_items .container {
+        display: inline;
+        justify-content: space-evenly;
+    }
+    .product_item p {
+        margin-top: -10px;
+    }
     
 }
