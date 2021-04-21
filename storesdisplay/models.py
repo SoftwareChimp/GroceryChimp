@@ -1,9 +1,8 @@
-from django.db import models
+from django.db import models #NEW - delete comment#
 
 
-# Create your models here.
 class Delivery(models.Model):
-    driver_id = models.IntegerField(primary_key=True)
+    driver_id = models.IntegerField(primary_key=True)    
     order_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -14,7 +13,7 @@ class Delivery(models.Model):
 class Driver(models.Model):
     driver_id = models.CharField(primary_key=True, max_length=5)
     driver_first = models.CharField(max_length=20, blank=True, null=True)
-    driver_last = models.CharField(max_length=20, blank=True, null=True)
+    driver_last = models.CharField(max_length=20, blank=True, null=True) 
     driver_email = models.CharField(max_length=30, blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     driver_phone = models.CharField(max_length=20, blank=True, null=True)
@@ -25,31 +24,33 @@ class Driver(models.Model):
 
 
 class Inventory(models.Model):
-    store_id = models.IntegerField(primary_key=True)
-    product_id = models.IntegerField(blank=True, null=True)
+    store_id = models.CharField(primary_key=True, max_length=5)
+    product_id = models.CharField(max_length=5)
     stock = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Inventory'
+        unique_together = (('store_id', 'product_id'),)
 
 
 class Order(models.Model):
-    order_id = models.IntegerField(primary_key=True)
-    user_id = models.IntegerField()
-    store_id = models.IntegerField()
-    product_id = models.IntegerField()
-    driver_id = models.IntegerField()
+    order_id = models.CharField(primary_key=True, max_length=5)
+    user_id = models.CharField(max_length=5)
+    store_id = models.CharField(max_length=5)
+    product_id = models.CharField(max_length=5)
+    driver_id = models.CharField(max_length=5)
     quantity = models.IntegerField()
 
     class Meta:
         managed = False
         db_table = 'Order'
+        unique_together = (('order_id', 'user_id', 'store_id', 'product_id', 'driver_id'),)
 
 
 class PaymentInfo(models.Model):
-    payment_id = models.IntegerField(primary_key=True)
-    user_id = models.IntegerField(blank=True, null=True)
+    payment_id = models.CharField(primary_key=True, max_length=5)
+    user_id = models.CharField(max_length=5)
     card_company = models.TextField(blank=True, null=True)
     card_number = models.IntegerField(blank=True, null=True)
     card_expiration = models.DateField(blank=True, null=True)
@@ -58,6 +59,7 @@ class PaymentInfo(models.Model):
     class Meta:
         managed = False
         db_table = 'Payment Info'
+        unique_together = (('payment_id', 'user_id'),)
 
 
 class Products(models.Model):
@@ -72,8 +74,8 @@ class Products(models.Model):
 
 
 class ShoppingCart(models.Model):
-    user_id = models.IntegerField(primary_key=True)
-    product_id = models.IntegerField()
+    user_id = models.CharField(primary_key=True, max_length=5)
+    product_id = models.CharField(max_length=5)
     quantity = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -93,15 +95,16 @@ class Stores(models.Model):
 
 
 class Transactions(models.Model):
-    transaction_id = models.IntegerField(primary_key=True)
-    user_id = models.IntegerField(blank=True, null=True)
-    order_id = models.IntegerField(blank=True, null=True)
+    transaction_id = models.CharField(primary_key=True, max_length=5)
+    user_id = models.CharField(max_length=5)
+    order_id = models.CharField(max_length=5)
     transaction_date = models.DateField(blank=True, null=True)
     transaction_price = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Transactions'
+        unique_together = (('transaction_id', 'user_id', 'order_id'),)
 
 
 class User(models.Model):
@@ -211,7 +214,6 @@ class DjangoContentType(models.Model):
 
 
 class DjangoMigrations(models.Model):
-    app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     applied = models.DateTimeField()
 
@@ -230,7 +232,7 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class StoresdisplayStore(models.Model):
+class StoresdisplayStores(models.Model):
     store_id = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     address = models.TextField()
@@ -238,4 +240,4 @@ class StoresdisplayStore(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'storesdisplay_store'
+        db_table = 'storesdisplay_stores'
