@@ -27,6 +27,17 @@
                     <a class="active" href="/">Home</a>
             </div>
         </header>
+        <div class="shopping_cart_header">
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </table>
+        </div>
+        
 <script>
     get_cart();
     function get_cart() {
@@ -57,37 +68,42 @@
                     div.innerHTML = "<ul><li>Products</li><li>Price</li><li>Quantity</li><li>Total</li></ul>";
                     document.body.append(div);
                  
+                    
                     for (let product of data["success"]) {
                         let div = document.createElement('div');
                         div.className = "shopping_cart_item";
+                        div.innerHTML += "<li>" + product["name"] + "</li><li>($" + product["base_price"] + ")</li><li><button type='GamepadButton'>-</button> " + product["quantity"] + 
+                                        " <button type='GamepadButton'>+</button></li><li>$" + product["total_price"] + "</li><br>";
                         // div.innerHTML += product["name"] + "($" + product["base_price"] + ")&emsp;x" + product["quantity"] + "&emsp;$" + product["total_price"] + "<br>";
-                        div.innerHTML += "<li>"+ product["name"] + "</li><li>($" + product["base_price"] + ")</li><li>x" + product["quantity"] +
-                                     "</li><li>$" + product["total_price"] + "</li><br>";
+                        /*div.innerHTML += "<li>"+ product["name"] + "</li><li>($" + product["base_price"] + ")</li><li>x" + product["quantity"] +
+                                     "</li><li>$" + product["total_price"] + "</li><br>";*/
                         document.body.append(div);
                         
 
                         /* Create a button element */
-                        var incrementButton = document.createElement('button');
+                        //var incrementButton = document.createElement('button');
                         /* Set the button's text label */
-                        incrementButton.innerHTML = '+';
+                        //incrementButton.innerHTML = '+';
                         /* Set the button's id */
-                        incrementButton.id = 'incrementButton';
+                        //incrementButton.id = 'incrementButton';
                         /* Set the button's style class */
-                        incrementButton.className = 'incrementButton';
+                        //incrementButton.className = 'incrementButton';
                         /* Add the button to the page */
-                        document.body.appendChild(incrementButton);
+                        //document.body.appendChild(incrementButton);
 
-                        var decrementButton = document.createElement('button');
+                        //var decrementButton = document.createElement('button');
                         /* Set the button's text label */
-                        decrementButton.innerHTML = '-';
+                        //decrementButton.innerHTML = '-';
                         /* Set the button's id */
-                        decrementButton.id = 'decrementButton';
+                        //decrementButton.id = 'decrementButton';
                         /* Set the button's style class */
-                        decrementButton.className = 'decrementButton';
+                        //decrementButton.className = 'decrementButton';
                         /* Add the button to the page */
-                        document.body.appendChild(decrementButton);
+                        //document.body.appendChild(decrementButton);
                         
                     }
+
+
                 }
             });
         }

@@ -24,6 +24,7 @@ body{
     overflow: hidden;
     background-color: transparent;
 }
+
 .topnav a {
     float: right;
     display: block;
@@ -375,6 +376,11 @@ body .home_page{
     padding: 15px 50px;
     border-radius: 50px;
     cursor: pointer;
+}
+
+.shopping_cart_header table {
+    width: 100%;
+    color:#fff;
 }
 
 
