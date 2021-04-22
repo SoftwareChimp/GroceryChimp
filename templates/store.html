@@ -87,14 +87,14 @@
         </section>
     </main>
     <script>
-        modifySignIn();
+        modify_sign_in();
         function add_to_cart(product_id) {
-            if (isSignedIn()) {
+            if (is_signed_in()) {
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
                     data: JSON.stringify({
-                        user: getUser(),
+                        user: get_user(),
                         product_id: product_id
                     }),
                     headers: {
