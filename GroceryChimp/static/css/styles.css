@@ -22,7 +22,8 @@ body{
 /* --------------- Navigation  -------------------*/
 .topnav {
     overflow: hidden;
-    background-color: transparent;
+    /*background-color: transparent;*/
+    background-color: black; /*Trying out black navbar*/
 }
 
 .topnav a {
@@ -36,7 +37,9 @@ body{
     color:white;
 }
 .topnav a:hover {
-    color: #FFBA0A;
+    /*color: #FFBA0A;*/
+    background-color: #FFBA0A;
+    color: black;
 }
 .topnav input[type=text] {
     float: right;
@@ -50,7 +53,7 @@ body{
 .logo {
     width: 33%;
     height: auto;
-    margin-top: -50px;
+    /*margin-top: -50px;*/
 }
 
 /*---------------- Home Page --------------------------*/
@@ -378,9 +381,19 @@ body .home_page{
     cursor: pointer;
 }
 
+.shopping_cart_header {
+    margin: 80px;
+}
+
 .shopping_cart_header table {
     width: 100%;
-    color:#fff;
+    border-collapse: collapse;
+}
+
+.shopping_cart_header th {
+    color: white;
+    background-color: black;
+    padding: 5px;
 }
 
 
