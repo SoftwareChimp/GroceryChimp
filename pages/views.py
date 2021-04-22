@@ -1,7 +1,7 @@
 import copy
 import json
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
 from storesdisplay.models import Stores, User, Inventory, Products, ShoppingCart
 
@@ -18,20 +18,18 @@ def store_view(request, *args, **kwargs):
         # form = json.loads(request.body)
         form = json.loads(request.body.decode('utf-8'))
 
-        # TODO: USERS STILL USE FIRST_NAME LAST_NAME, REPLACE THIS IN FUTURE
         # GET USER INFORMATION (IN FUTURE INCLUDE THIS IN COOKIE?)
-        name = str(form["user"]).split()
-        user = User.objects.get(user_first__iexact=name[0], user_last__iexact=name[1])
+        form_user = form["user"]
+        user = User.objects.get(user_name__iexact=form_user["user_name"],
+                                user_password__iexact=form_user["user_password"])
 
         # GET PRODUCT INFORMATION
         product = Products.objects.get(product_id__iexact=form["product_id"])
 
         # ADD TO SHOPPING CART
         try:
-            # TODO: THE SHOPPING CART MODEL (AND A GOOD NUMBER OF OTHERS) USE INTEGERS FOR THEIR IDS WHEN ...
-            # TODO: ... THE USER AND PRODUCTS MODEL USE STRINGS. FIX THIS ISSUE?
-            cart_entry = ShoppingCart.objects.get(user_id__iexact=int(user.user_id[1:]),
-                                                  product_id__iexact=int(product.product_id[1:]))
+            cart_entry = ShoppingCart.objects.get(user_id__iexact=user.user_id,
+                                                  product_id__iexact=product.product_id)
 
             # SHOPPING CART ENTRY SHOULD EXIST BEYOND THIS POINT
             # INCREMENT QUANTITY AND SAVE ENTRY
@@ -42,8 +40,8 @@ def store_view(request, *args, **kwargs):
             # SHOPPING CART ENTRY DOES NOT EXIST
             # CREATE NEW SHOPPING CART ENTRY
             ShoppingCart.objects.create(
-                user_id=int(user.user_id[1:]),
-                product_id=int(product.product_id[1:]),
+                user_id=user.user_id,
+                product_id=product.product_id,
                 quantity=1
             )
             quantity = 1
@@ -102,10 +100,8 @@ def signin_view(request, *args, **kwargs):
 
         # CHECK USER NAME
         try:
-            # TODO: CURRENTLY user_name DOES NOT EXIST, USE user_first INSTEAD
-            # TODO: SAME WITH user_password, USE user_last INSTEAD
-            user = User.objects.get(user_first__iexact=form["username"])
-            password = user.user_last
+            user = User.objects.get(user_name__iexact=form["username"])
+            password = user.user_password
             if form["password"] != password:
                 form["error"] = "Invalid Password"
                 return HttpResponse(json.dumps(form))
@@ -113,7 +109,13 @@ def signin_view(request, *args, **kwargs):
             form["error"] = "Invalid Username"
             return HttpResponse(json.dumps(form))
 
-        form["success"] = form["username"] + " " + form["password"]
+        form["success"] = {
+            "id": user.user_id,
+            "user_name": user.user_name,
+            "user_password": user.user_password,
+            "user_first": user.user_first,
+            "user_last": user.user_last
+        }
         return HttpResponse(json.dumps(form))
     else:
         return render(request, "signin.html", {})
@@ -142,9 +144,14 @@ def signup_view(request, *args, **kwargs):
             user_email=form["email"],
             user_phone=form["phoneNumber"]
         )
-        print(len(users))
 
-        form["success"] = form["username"] + " " + form["password"]
+        form["success"] = {
+            "id": user_id,
+            "user_name": form["username"],
+            "user_password": form["password"],
+            "user_first": form["firstname"],
+            "user_last": form["lastname"]
+        }
         return HttpResponse(json.dumps(form))
     else:
         return render(request, "signup.html", {})
@@ -154,18 +161,16 @@ def shopping_cart(request, *args, **kwargs):
     if request.method == 'POST':
         form = json.loads(request.body.decode('utf-8'))
 
-        # TODO: USERS STILL USE FIRST_NAME LAST_NAME, REPLACE THIS IN FUTURE
         # GET USER INFORMATION (IN FUTURE INCLUDE THIS IN COOKIE?)
-        name = str(form["user"]).split()
-        user = User.objects.get(user_first__iexact=name[0], user_last__iexact=name[1])
+        form = json.loads(request.body.decode('utf-8'))["user"]
+        # user = User.objects.get(user_name__iexact=form["user_name"], user_password__iexact=form["user_password"])
 
         # GET USER SHOPPING CART INFORMATION
-        user_id = int(user.user_id[1:])
-        user_cart = ShoppingCart.objects.filter(user_id__iexact=user_id)
+        user_cart = ShoppingCart.objects.filter(user_id__iexact=form["id"])
 
         cart = []
         for cart_item in user_cart:
-            product_id = "p" + str(cart_item.product_id)
+            product_id = cart_item.product_id
             product = Products.objects.get(product_id__iexact=product_id)
             entry = {
                 "name": product.product_name,

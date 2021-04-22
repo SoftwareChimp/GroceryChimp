@@ -55,7 +55,7 @@ class SignIn extends React.Component {
                     // SET COOKIE
                     let d = new Date();
                     d.setTime(d.getTime() + (60 * 60 * 1000)) // EXPIRE IN 1 HOUR
-                    document.cookie = "user=" + response["success"] + "; expires=" + d.toUTCString() + "; path=/";
+                    document.cookie = "user=" + JSON.stringify(response["success"]) + "; expires=" + d.toUTCString() + "; path=/";
 
                     // REDIRECT USER BACK TO HOME PAGE
                     window.location.replace("/");
