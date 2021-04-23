@@ -41,12 +41,12 @@
 <script>
     get_cart();
     function get_cart() {
-        if (isSignedIn()) {
+        if (is_signed_in()) {
             $.ajax({
                 url: window.location.pathname,
                 type: 'POST',
                 data: JSON.stringify({
-                    user: getUser()
+                    user: get_user()
                 }),
                 headers: {
                     'Accept': 'application/json',
@@ -58,15 +58,15 @@
                 success: function(data) {
                     console.log(data);
 
-                        let h3 = document.createElement('h3');
-                        h3.className = "username_shopping_cart";
-                        h3.innerHTML += data.user_first + " " + data.user_last + "'s Shopping Cart<br><br>";
-                        document.body.append(h3);
+                    /*let h3 = document.createElement('h3');
+                    h3.className = "username_shopping_cart";
+                    h3.innerHTML += data.user_first + " " + data.user_last + "'s Shopping Cart<br><br>";
+                    document.body.append(h3);
 
                     let div = document.createElement('div');
                     div.className = 'title_shopping_cart';
                     div.innerHTML = "<ul><li>Products</li><li>Price</li><li>Quantity</li><li>Total</li></ul>";
-                    document.body.append(div);
+                    document.body.append(div);*/
                  
                     
                     for (let product of data["success"]) {
@@ -77,10 +77,8 @@
                         // div.innerHTML += product["name"] + "($" + product["base_price"] + ")&emsp;x" + product["quantity"] + "&emsp;$" + product["total_price"] + "<br>";
                         /*div.innerHTML += "<li>"+ product["name"] + "</li><li>($" + product["base_price"] + ")</li><li>x" + product["quantity"] +
                                      "</li><li>$" + product["total_price"] + "</li><br>";*/
-                        let div = document.createElement('div');
-                        div.className = 'title_shopping_cart';
-                        div.innerHTML = "<ul><li>Products</li><li>Price</li><li>Quantity</li><li>Total</li></ul>";
                         document.body.append(div);
+
 
                         /* Create a button element */
                         //var incrementButton = document.createElement('button');
