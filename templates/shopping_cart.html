@@ -18,33 +18,23 @@
 
 </head>
 <body class="shopping_cart">
-       <!-- ***********************  NAVIGATION  *********************** -->
-        <header>
-            <div class="topnav">
-                    <input type="text" placeholder="Search..">
-                    <a id="signin-signout" class="active" href="/signin/">Sign in</a>
-                    <a class="active" href="/shopping_cart/">Cart</a>
-                    <a class="active" href="/">Home</a>
-            </div>
-        </header>
-        <div class="content-wrap_shopping_cart">
-            <img src="{% static 'images/logo_grocery.png' %}" alt="GroceryChimp_Logo" class="logo_displayStores">
-            <h1 class="shopping_cart_title">Review List</h1>
-        <div class="shopping_cart_header">
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-            </table>
+    <!-- ***********************  NAVIGATION  *********************** -->
+    <header>
+        <div class="topnav">
+            <input type="text" placeholder="Search..">
+            <a id="signin-signout" class="active" href="/signin/">Sign in</a>
+            <a class="active" href="/">Home</a>
         </div>
-        
+    </header>
+    <div class="content-wrap_shopping_cart">
+        <img src="{% static 'images/logo_grocery.png' %}" alt="GroceryChimp_Logo" class="logo_displayStores">
+        <h1 class="shopping_cart_title">Review List</h1>
+    </div>
+</body>
 <script>
+    modify_sign_in();
     get_cart();
     function get_cart() {
-        
         if (is_signed_in()) {
             $.ajax({
                 url: window.location.pathname,
@@ -61,29 +51,101 @@
                 contentType: 'application/json',
                 success: function(data) {
                     console.log(data);
+                    // CREATE TABLE HEADER
+                    let table = document.createElement('table');
+                    table.className = "shopping_cart";
+                    let tr = document.createElement('tr');
+                    tr.className = "shopping_cart_header";
+                    let th = document.createElement('th');
+                    th.innerText = "Product";
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = "Price";
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = "Quantity";
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = "Subtotal";
+                    tr.appendChild(th);
+                    table.appendChild(tr);
 
+                    // ITERATE THROUGH PRODUCTS
                     for (let product of data["success"]) {
-                        let table = document.createElement('table');
-                        table.className = "shopping_cart_item";
-                        table.innerHTML += "<tr><td>" + product["name"] + "</td><td>($" + product["base_price"] + ")</td><td><button type='GamepadButton' class='incrementButton'>-</button> " 
-                            + product["quantity"] + " <button type='GamepadButton' class='decrementButton'>+</button></td><td>$" + product["total_price"] + "</td> </tr>";
-                        document.body.append(table);
+                        tr = document.createElement('tr');
+                        tr.className = "shopping_cart_item";
+
+                        // PRODUCT NAME
+                        let td = document.createElement('td');
+                        td.innerText = product["name"];
+                        tr.appendChild(td);
+
+                        // PRODUCT PRICE PER ITEM
+                        td = document.createElement('td');
+                        td.innerText = "$" + product["base_price"];
+                        tr.appendChild(td);
+
+                        // PRODUCT QUANTITY AND DECREMENT/INCREMENT BUTTONS
+                        td = document.createElement('td');
+                        let button = document.createElement('button');
+                        button.type = "GamepadButton";
+                        button.className = "decrementButton";
+                        button.innerText = "-";
+                        button.onclick = (e) => {
+                            const b = e.target;
+                            let quantity = parseInt(b.nextSibling.innerText);
+                            b.nextSibling.innerText = (quantity - 1 >= 0) ? --quantity : 0;
+                            let price = b.parentElement.previousSibling.innerText.substring(1);
+                            b.parentElement.nextSibling.innerText = "$" + (price * quantity).toFixed(2);
+                        };
+                        td.appendChild(button);
+
+                        let span = document.createElement('span');
+                        span.innerText = product["quantity"];
+                        td.appendChild(span);
+
+                        button = document.createElement('button');
+                        button.type = "GamepadButton";
+                        button.className = "incrementButton";
+                        button.innerText = "+";
+                        button.onclick = (e) => {
+                            const b = e.target;
+                            let quantity = parseInt(b.previousSibling.innerText);
+                            b.previousSibling.innerText = ++quantity;
+                            let price = b.parentElement.previousSibling.innerText.substring(1);
+                            b.parentElement.nextSibling.innerText = "$" + (price * quantity).toFixed(2);
+                        };
+                        td.appendChild(button);
+                        tr.appendChild(td);
+
+                        // PRODUCT SUBTOTAL
+                        td = document.createElement('td');
+                        td.innerText = "$" + product["total_price"];
+                        tr.appendChild(td);
+
+                        // ADD PRODUCT ROW TO TABLE
+                        table.appendChild(tr);
                     }
-                        var pay_button = document.createElement('button');
-                        pay_button.innerHTML = 'PAY NOW';
-                        pay_button.id = 'pay_button';
-                        pay_button.className = 'pay_button';
-                        document.body.appendChild(pay_button);
+                    document.body.append(table);
+
+                    // ADD PAY BUTTON TO DOCUMENT
+                    let pay_button = document.createElement('button');
+                    pay_button.innerHTML = 'PAY NOW';
+                    pay_button.id = 'pay_button';
+                    pay_button.className = 'pay_button';
+                    pay_button.onclick = (e) => {
+                        console.log("do stuff here");
+                        // TODO: GET CURRENT DISPLAYED PRODUCTS AND QUANTITIES AND CREATE ORDERS
+                    };
+                    document.body.appendChild(pay_button);
                 }
             });
         }
         else {
-            document.getElementsByClassName("pay_button")[0].hidden = true;
+            // HIDE ELEMENTS IF NOT SIGNED IN
+            document.getElementsByClassName("shopping_cart_title")[0].hidden = true;
             document.body.innerHTML += "You are not signed in.";
         }
     }
 </script>
-<!-- <button class="pay_button">PAY NOW</button> -->
-</div>
-</body>
 </html>

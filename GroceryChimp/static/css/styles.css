@@ -363,10 +363,10 @@ tr {
     padding: 5px 13px;
     border-radius: 50px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 .decrementButton {
-    margin-left: 10px;
+    margin-right: 10px;
     background-color: #342D1D;
     color: #fff; 
     padding: 5px 13px;
@@ -382,12 +382,14 @@ tr {
     cursor: pointer;
     margin-top: 50px;
     margin-bottom: 130px;
-    margin-left: 990px;
+    /*margin-left: 990px;*/
+    float: right;
 }
 .shopping_cart_header {
     margin: 80px;
 }
-.shopping_cart_header table {
+/* .shopping_cart_header table { */
+.shopping_cart table {
     width: 100%;
     border-spacing: 35px 5px;
     table-layout : fixed;
