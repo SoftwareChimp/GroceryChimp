@@ -27,6 +27,9 @@
                     <a class="active" href="/">Home</a>
             </div>
         </header>
+        <div class="content-wrap_shopping_cart">
+            <img src="{% static 'images/logo_grocery.png' %}" alt="GroceryChimp_Logo" class="logo_displayStores">
+            <h1 class="shopping_cart_title">Review List</h1>
         <div class="shopping_cart_header">
             <table>
                 <tr>
@@ -41,6 +44,7 @@
 <script>
     get_cart();
     function get_cart() {
+        
         if (is_signed_in()) {
             $.ajax({
                 url: window.location.pathname,
@@ -58,52 +62,18 @@
                 success: function(data) {
                     console.log(data);
 
-                    /*let h3 = document.createElement('h3');
-                    h3.className = "username_shopping_cart";
-                    h3.innerHTML += data.user_first + " " + data.user_last + "'s Shopping Cart<br><br>";
-                    document.body.append(h3);
-
-                    let div = document.createElement('div');
-                    div.className = 'title_shopping_cart';
-                    div.innerHTML = "<ul><li>Products</li><li>Price</li><li>Quantity</li><li>Total</li></ul>";
-                    document.body.append(div);*/
-                 
-                    
                     for (let product of data["success"]) {
-                        let div = document.createElement('div');
-                        div.className = "shopping_cart_item";
-                        div.innerHTML += "<li>" + product["name"] + "</li><li>($" + product["base_price"] + ")</li><li><button type='GamepadButton'>-</button> " + product["quantity"] + 
-                                        " <button type='GamepadButton'>+</button></li><li>$" + product["total_price"] + "</li><br>";
-                        // div.innerHTML += product["name"] + "($" + product["base_price"] + ")&emsp;x" + product["quantity"] + "&emsp;$" + product["total_price"] + "<br>";
-                        /*div.innerHTML += "<li>"+ product["name"] + "</li><li>($" + product["base_price"] + ")</li><li>x" + product["quantity"] +
-                                     "</li><li>$" + product["total_price"] + "</li><br>";*/
-                        document.body.append(div);
-
-
-                        /* Create a button element */
-                        //var incrementButton = document.createElement('button');
-                        /* Set the button's text label */
-                        //incrementButton.innerHTML = '+';
-                        /* Set the button's id */
-                        //incrementButton.id = 'incrementButton';
-                        /* Set the button's style class */
-                        //incrementButton.className = 'incrementButton';
-                        /* Add the button to the page */
-                        //document.body.appendChild(incrementButton);
-
-                        //var decrementButton = document.createElement('button');
-                        /* Set the button's text label */
-                        //decrementButton.innerHTML = '-';
-                        /* Set the button's id */
-                        //decrementButton.id = 'decrementButton';
-                        /* Set the button's style class */
-                        //decrementButton.className = 'decrementButton';
-                        /* Add the button to the page */
-                        //document.body.appendChild(decrementButton);
-                        
+                        let table = document.createElement('table');
+                        table.className = "shopping_cart_item";
+                        table.innerHTML += "<tr><td>" + product["name"] + "</td><td>($" + product["base_price"] + ")</td><td><button type='GamepadButton' class='incrementButton'>-</button> " 
+                            + product["quantity"] + " <button type='GamepadButton' class='decrementButton'>+</button></td><td>$" + product["total_price"] + "</td> </tr>";
+                        document.body.append(table);
                     }
-
-
+                        var pay_button = document.createElement('button');
+                        pay_button.innerHTML = 'PAY NOW';
+                        pay_button.id = 'pay_button';
+                        pay_button.className = 'pay_button';
+                        document.body.appendChild(pay_button);
                 }
             });
         }
@@ -113,5 +83,7 @@
         }
     }
 </script>
+<!-- <button class="pay_button">PAY NOW</button> -->
+</div>
 </body>
 </html>

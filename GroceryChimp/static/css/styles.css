@@ -323,77 +323,85 @@ body .home_page{
 }
 /* ---------------  Shopping Cart Page ----------------------*/
 .shopping_cart {
-    /* background-color: #FF4000; */
     background-color: #FFBA0A;
 }
-.username_shopping_cart {
-    padding: 15px;
-    border: 1px solid #d6e9c6;
-    border-radius: 4px;
-    color: #3c763d;
-    background-color: #dff0d8;
+.shopping_cart_title{
+    margin-top: -10px;
+    font-size: 60px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+
 }
-.shopping_cart_item {
-    display: inline-flex;
-    background-color: #fff;
-    margin-bottom: 10px;
+.shopping_cart_item  {
     width: 90%;
-}
-.shopping_cart_item li {
-    display: inline;
-    list-style-type: none;
-    padding: 50px;
+    border-spacing: 35px 5px;
+    table-layout : fixed;
     margin-left: auto;
     margin-right: auto;
+    font-family: "Roboto", sans-serif;
+}
+.content-wrap_shopping_cart {
+    margin: 0 auto;
+    padding: 10px 0;
+    font-family: "Roboto", sans-serif;
+}
+.shopping_cart_item tr td {
+    border-collapse: separate;
+    border: 1px solid black;
+}
+tr, td {
+    padding: 15px;
+}
+tr {
+    text-align: right;
 }
 .incrementButton {
     background-color: #342D1D;
     color: #fff; 
-    padding: 5px 20px;
+    padding: 5px 13px;
     border-radius: 50px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-right: 10px;
 }
 .decrementButton {
     margin-left: 10px;
     background-color: #342D1D;
     color: #fff; 
-    padding: 5px 20px;
+    padding: 5px 13px;
     border-radius: 50px;
     cursor: pointer;
 }
-
-.title_shopping_cart li{
-    font-size: large;
-    list-style-type: none;
-    padding: 100px;
-    display: inline;
-    margin-left: auto;
-    margin-right: auto;
-}
 .pay_button {
-    margin-left: auto;
-    margin-right: auto;
     background-color: #342D1D;
     color: #fff; 
     padding: 15px 50px;
-    border-radius: 50px;
+    width: 20%;
+    border-radius: 0px;
     cursor: pointer;
+    margin-top: 50px;
+    margin-bottom: 130px;
+    margin-left: 990px;
 }
-
 .shopping_cart_header {
     margin: 80px;
 }
-
 .shopping_cart_header table {
     width: 100%;
-    border-collapse: collapse;
+    border-spacing: 35px 5px;
+    table-layout : fixed;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -50px;
 }
-
+tr, th {
+    padding: 15px;
+}
 .shopping_cart_header th {
     color: white;
     background-color: black;
-    padding: 5px;
+    text-align: left;
 }
 
 
@@ -534,5 +542,88 @@ body .home_page{
     .product_item p {
         margin-top: -10px;
     }
+    /* ---------------  Shopping Cart Page ----------------------*/
+    /* .shopping_cart {
+        background-color: #FFBA0A;
+    }
+    .shopping_cart_title{
+        margin-top: -10px;
+        font-size: 60px;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    
+    }
+    .shopping_cart_item  {
+        width: 90%;
+        border-spacing: 35px 5px;
+        table-layout : fixed;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: "Roboto", sans-serif;
+    }
+    .content-wrap_shopping_cart {
+        margin: 0 auto;
+        padding: 10px 0;
+        font-family: "Roboto", sans-serif;
+    }
+    .shopping_cart_item tr td {
+        border-collapse: separate;
+        border: 1px solid black;
+    }
+    tr, td {
+        padding: 15px;
+    }
+    tr {
+        text-align: right;
+    }
+    .incrementButton {
+        background-color: #342D1D;
+        color: #fff; 
+        padding: 5px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    .decrementButton {
+        margin-left: 10px;
+        background-color: #342D1D;
+        color: #fff; 
+        padding: 5px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+    .pay_button {
+        background-color: #342D1D;
+        color: #fff; 
+        padding: 15px 50px;
+        width: 20%;
+        border-radius: 0px;
+        cursor: pointer;
+        margin-top: 50px;
+        margin-bottom: 130px;
+        margin-left: 990px;
+    }
+    .shopping_cart_header {
+        margin: 80px;
+    }
+    .shopping_cart_header table {
+        width: 100%;
+        border-spacing: 35px 5px;
+        table-layout : fixed;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: -50px;
+    }
+    tr, th {
+        padding: 15px;
+    }
+    .shopping_cart_header th {
+        color: white;
+        background-color: black;
+        text-align: left;
+    }
+     */
     
 }
