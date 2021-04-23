@@ -71,6 +71,7 @@
                     table.appendChild(tr);
 
                     // ITERATE THROUGH PRODUCTS
+                    let total = 0;
                     for (let product of data["success"]) {
                         tr = document.createElement('tr');
                         tr.className = "shopping_cart_item";
@@ -121,11 +122,26 @@
                         // PRODUCT SUBTOTAL
                         td = document.createElement('td');
                         td.innerText = "$" + product["total_price"];
+                        total += parseFloat(product["total_price"]);
                         tr.appendChild(td);
 
                         // ADD PRODUCT ROW TO TABLE
                         table.appendChild(tr);
                     }
+                    // APPEND TOTAL
+                    tr = document.createElement('tr');
+                    tr.className = "shopping_cart_item";
+                    td = document.createElement('td'); tr.appendChild(td); // SKIP PRODUCT
+                    td = document.createElement('td'); tr.appendChild(td); // SKIP PRICE
+                    td = document.createElement('td');
+                    td.innerText = "TOTAL"
+                    tr.appendChild(td);
+                    td = document.createElement('td');
+                    td.innerText = "$" + total.toFixed(2);
+                    tr.appendChild(td);
+                    table.appendChild(tr);
+
+                    // ADD TABLE TO DOCUMENT
                     document.body.append(table);
 
                     // ADD PAY BUTTON TO DOCUMENT
