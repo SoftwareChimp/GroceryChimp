@@ -115,6 +115,8 @@
                             b.previousSibling.innerText = ++quantity;
                             let price = b.parentElement.previousSibling.innerText.substring(1);
                             b.parentElement.nextSibling.innerText = "$" + (price * quantity).toFixed(2);
+
+                            update_total();
                         };
                         td.appendChild(button);
                         tr.appendChild(td);
@@ -130,7 +132,7 @@
                     }
                     // APPEND TOTAL
                     tr = document.createElement('tr');
-                    tr.className = "shopping_cart_item";
+                    tr.className = "shopping_cart_total";
                     td = document.createElement('td'); tr.appendChild(td); // SKIP PRODUCT
                     td = document.createElement('td'); tr.appendChild(td); // SKIP PRICE
                     td = document.createElement('td');
@@ -147,13 +149,39 @@
                     // ADD PAY BUTTON TO DOCUMENT
                     let pay_button = document.createElement('button');
                     pay_button.innerHTML = 'PAY NOW';
-                    pay_button.id = 'pay_button';
                     pay_button.className = 'pay_button';
                     pay_button.onclick = (e) => {
                         console.log("do stuff here");
                         // TODO: GET CURRENT DISPLAYED PRODUCTS AND QUANTITIES AND CREATE ORDERS
+                        $.ajax({
+                            url: window.location.pathname,
+                            type: 'POST',
+                            data: JSON.stringify({
+                                user: get_user()
+                            }),
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCSRFToken()
+                            },
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function(data) {
+                                console.log("success");
+                            }
+                        });
                     };
                     document.body.appendChild(pay_button);
+
+                    // ADD SAVE CART BUTTON
+                    let save_button = document.createElement('button');
+                    save_button.innerHTML = 'SAVE CART';
+                    save_button.className = 'pay_button';
+                    save_button.onclick = (e) => {
+                        console.log("do stuff here");
+                        // TODO: GET CURRENT CART QUANTITIES AND UPDATE THEM IN USER'S SHOPPING CART
+                    };
+                    document.body.appendChild(save_button);
                 }
             });
         }
@@ -162,6 +190,45 @@
             document.getElementsByClassName("shopping_cart_title")[0].hidden = true;
             document.body.innerHTML += "You are not signed in.";
         }
+    }
+    function get_new_cart() {
+        let table = document.getElementsByTagName("table")[0];
+        let cart_items = table.getElementsByClassName("shopping_cart_item");
+        let cart = [];
+        for (let ci of cart_items) {
+            // GET <td> WITH ITEM NAME
+            let elem = ci.children[0];
+            let item_name = elem.innerText;
+
+            // GET <td> WITH PRICE STRING
+            elem = elem.nextSibling;
+            let price = parseFloat(elem.innerText.substring(1));
+
+            // GET <td> WITH QUANTITY BUTTONS
+            elem = elem.nextSibling;
+            let quantity = parseInt(elem.children[1].innerText);
+
+            // GET <td> WITH SUBTOTAL
+            elem = elem.nextSibling;
+            let subtotal = parseFloat(elem.innerText.substring(1));
+
+            cart.push({
+                "item_name": item_name,
+                "price": price,
+                "quantity": quantity,
+                "subtotal": subtotal
+            });
+        }
+        return cart;
+    }
+
+    function update_total() {
+        let cart = get_new_cart();
+        let total = 0;
+        for (let i of cart) {
+            total += i["subtotal"];
+        }
+        document.getElementsByClassName("shopping_cart_total")[0].children[3].innerText = "$" + total.toFixed(2);
     }
 </script>
 </html>

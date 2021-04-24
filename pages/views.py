@@ -187,5 +187,12 @@ def shopping_cart(request, *args, **kwargs):
         return render(request, "shopping_cart.html", {})
 
 
+def checkout(request, *args, **kwargs):
+    if request.method == "POST":
+        return HttpResponse("{}")
+    else:
+        return render(request, "contact.html", {})
+
+
 def contact_view(request, *args, **kwargs):
     return render(request, "contact.html", {})
