@@ -98,6 +98,8 @@
                             b.nextSibling.innerText = (quantity - 1 >= 0) ? --quantity : 0;
                             let price = b.parentElement.previousSibling.innerText.substring(1);
                             b.parentElement.nextSibling.innerText = "$" + (price * quantity).toFixed(2);
+
+                            update_total();
                         };
                         td.appendChild(button);
 
@@ -151,8 +153,10 @@
                     pay_button.innerHTML = 'PAY NOW';
                     pay_button.className = 'pay_button';
                     pay_button.onclick = (e) => {
-                        console.log("do stuff here");
                         // TODO: GET CURRENT DISPLAYED PRODUCTS AND QUANTITIES AND CREATE ORDERS
+                        let cart = get_new_cart();
+                        console.log(cart);
+                        /*
                         $.ajax({
                             url: window.location.pathname,
                             type: 'POST',
@@ -170,6 +174,7 @@
                                 console.log("success");
                             }
                         });
+                        */
                     };
                     document.body.appendChild(pay_button);
 
@@ -178,8 +183,9 @@
                     save_button.innerHTML = 'SAVE CART';
                     save_button.className = 'pay_button';
                     save_button.onclick = (e) => {
-                        console.log("do stuff here");
                         // TODO: GET CURRENT CART QUANTITIES AND UPDATE THEM IN USER'S SHOPPING CART
+                        let cart = get_new_cart();
+                        console.log(cart);
                     };
                     document.body.appendChild(save_button);
                 }
@@ -191,7 +197,7 @@
             document.body.innerHTML += "You are not signed in.";
         }
     }
-    function get_new_cart() {
+    function get_new_cart(ignore_0_quantity = false) {
         let table = document.getElementsByTagName("table")[0];
         let cart_items = table.getElementsByClassName("shopping_cart_item");
         let cart = [];
@@ -207,6 +213,9 @@
             // GET <td> WITH QUANTITY BUTTONS
             elem = elem.nextSibling;
             let quantity = parseInt(elem.children[1].innerText);
+            if (ignore_0_quantity && quantity <= 0) {
+                continue;
+            }
 
             // GET <td> WITH SUBTOTAL
             elem = elem.nextSibling;
