@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title>User's Order</title>
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'javascript/account_management.js' %}"></script>
+
+    <!-- CSS STYLE SHEETS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <!-- ***********************  NAVIGATION  *********************** -->
+        <header>
+            <div class="topnav">
+                    <input type="text" placeholder="Search..">
+                    <a id="signin-signout" class="active" href="/signin/">Sign in</a>
+                    <a class="active" href="/shopping_cart/">Cart</a>
+                    <a class="active" href="/">Home</a>
+            </div>
+        </header>
+        <section class="users_order">
+        <div class="content-wrap">
+                <img src="{% static 'images/logo_grocery_white.png' %}" alt="GroceryChimp_Logo" class="logo">
+                <h1>Thank you for shopping with us!</h1>
+                <a href="#order_details" class="btn_link_to_order">Your Order Details</a>
+            </div>
+        </section>
+        <section class="details">
+            <div class="content-wrap" id="order_details">
+                <h2>Order Details</h2>
+                <p>Transaction ID: </p>
+                <p> Transaction Date: </p>
+                <p> Transaction Price: </p>
+                <p> Your order is delivered by: <p>
+                <p> Driver's firstname/ Driver's lastname</p>
+                <h2>Please tell us how we did</h2>
+                <!-- TODO: LIST FOR FIVE STARS REVIEW  -->
+            <div>
+        </section>
+    </body>
+</html>

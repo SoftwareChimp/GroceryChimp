@@ -17,7 +17,7 @@
 
 
 </head>
-<body class="shopping_cart">
+<body class="shopping_cart"></body>
     <!-- ***********************  NAVIGATION  *********************** -->
     <header>
         <div class="topnav">
@@ -26,11 +26,14 @@
             <a class="active" href="/">Home</a>
         </div>
     </header>
-    <div class="content-wrap_shopping_cart">
-        <img src="{% static 'images/logo_grocery.png' %}" alt="GroceryChimp_Logo" class="logo_displayStores">
+    <section class="shoppingCart">
+    <div class="content-wrap">
+        <img src="{% static 'images/logo_grocery_white.png' %}" alt="GroceryChimp_Logo" class="logo">
         <h1 class="shopping_cart_title">Review List</h1>
     </div>
+    </section>
 </body>
+<div class="content-wrap">
 <script>
     modify_sign_in();
     get_cart();
@@ -135,9 +138,11 @@
                     td = document.createElement('td'); tr.appendChild(td); // SKIP PRICE
                     td = document.createElement('td');
                     td.innerText = "TOTAL"
+                    td.className = "total_msg"
                     tr.appendChild(td);
                     td = document.createElement('td');
                     td.innerText = "$" + total.toFixed(2);
+                    td.className = "total_price"
                     tr.appendChild(td);
                     table.appendChild(tr);
 
@@ -160,8 +165,9 @@
         else {
             // HIDE ELEMENTS IF NOT SIGNED IN
             document.getElementsByClassName("shopping_cart_title")[0].hidden = true;
-            document.body.innerHTML += "You are not signed in.";
+            document.body.innerHTML += "<h2 class='notsignin_msg'>You are not signed in.</h2>";
         }
     }
 </script>
+</div>
 </html>

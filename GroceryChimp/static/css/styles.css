@@ -22,7 +22,7 @@ body{
 /* --------------- Navigation  -------------------*/
 .topnav {
     overflow: hidden;
-    /*background-color: transparent;*/
+    /* background-color: transparent; */
     background-color: black; /*Trying out black navbar*/
 }
 
@@ -53,7 +53,6 @@ body{
 .logo {
     width: 33%;
     height: auto;
-    /*margin-top: -50px;*/
 }
 
 /*---------------- Home Page --------------------------*/
@@ -78,7 +77,7 @@ body .home_page{
     width: 50%;
     font-size: 30px;
     color:white;
-    margin-bottom: -10px;
+    margin-bottom: -30px;
 }
 .center {
     display: block;
@@ -197,12 +196,13 @@ body .home_page{
     font-size: 40px;
 }
 .store {
+    margin-top: -10px;
     text-align: center;
     font-family: "Roboto", sans-serif;
     background: #262626;
     opacity: 0.7;
     width: 50%;
-    margin-bottom: 90px;
+    margin-bottom: 55px;
 }
 .content-wrap a{
     font-size: 19px;
@@ -325,14 +325,23 @@ body .home_page{
 .shopping_cart {
     background-color: #FFBA0A;
 }
+.shoppingCart {
+    background-image: url(../images/shopping_cart.png);
+    background-position: top; 
+    height: 100%;
+    background-size: cover;
+}
 .shopping_cart_title{
-    margin-top: -10px;
+    margin-top: 90px;
     font-size: 60px;
-    color: black;
+    color: #fff;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
-
+    background: #262626;
+    opacity: 0.7;
+    width: 50%;
+    float: right;
+    padding:  20px;
 }
 .shopping_cart_item  {
     width: 90%;
@@ -349,7 +358,7 @@ body .home_page{
 }
 .shopping_cart_item tr td {
     border-collapse: separate;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 tr, td {
     padding: 15px;
@@ -374,28 +383,33 @@ tr {
     cursor: pointer;
 }
 .pay_button {
+    margin-top: 40px;
     background-color: #342D1D;
     color: #fff; 
-    padding: 15px 50px;
+    padding: 15px 35px;
     width: 20%;
-    border-radius: 0px;
+    border-radius: 50px;
     cursor: pointer;
-    margin-top: 50px;
     margin-bottom: 130px;
-    /*margin-left: 990px;*/
     float: right;
+    margin-right: 80px;
+}
+.pay_button:hover {
+    background-color: #685B3B;
 }
 .shopping_cart_header {
     margin: 80px;
 }
-/* .shopping_cart_header table { */
 .shopping_cart table {
-    width: 100%;
+    margin-top: -90px;
+    width: 85%;
     border-spacing: 35px 5px;
     table-layout : fixed;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: -50px;
+    border: 1px solid black;
+    font-size: 20px;
+    background-color: #ffc42e;
 }
 tr, th {
     padding: 15px;
@@ -405,8 +419,99 @@ tr, th {
     background-color: black;
     text-align: left;
 }
+.notsignin_msg {
+    margin-top: -20px;
+    text-align: center;
+    font-size: 50px;
+    font-family: "Roboto", sans-serif;
+}
+.total_msg {
+    font-weight: bold;
+    font-size: 25px;
+}
+.total_price {
+    font-weight: bold;
+    font-size: 25px;
+}
 
+/* ---------------  User's order  ----------------------*/
+.users_order {
+    background-image: url(../images/groceryDriver.gif);
+}
+.users_order h1 {
+    margin-top: -80px;
+    text-align: right;
+    font-size: 80px;
+    width: 50%;
+    margin-left: auto;
+    color: #F7FFF7;
+}
+.btn_link_to_order {
+    margin-top: -25px;
+    width:auto;
+    color: #F7FFF7;
+    background: #342D1D;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 30px;
+    float: right;
+    padding: 13px 20px;
+}
+.btn_link_to_order:hover {
+    background:  #685B3B;
+    color: #fabc49;
+}
+.details{
+    background-color: #FFBA0A;
+    text-align: center;
+}
+.details h2 {
+    font-size: 40px;
+}
+.details p {
+    font-size: 20px;
+}
 
+/* ---------------  Checkout Details  ----------------------*/
+.checkout{
+    font-family: "Roboto", sans-serif;
+}
+.checkout h2 {
+    font-size: 40px;
+}
+.checkout_btn {
+    background-color: #342D1D;
+    color: #fff; 
+    padding: 10px 25px;
+    cursor: pointer;
+    font-size: large;
+}
+.checkout_btn:hover {
+    background-color: #685B3B;
+}
+.checkout_form{
+    font-size: 20px;
+}
+.checkout_form label{
+}
+.checkout_form input::placeholder {
+    font-size: 18px;
+  }
+  .checkout_form input {
+    background-color: rgba(0,0,0,0);
+    height: 40px;
+    transition:height 1 s;
+    -webkit-transition:height 1 s;
+    border: 1px solid #504838;
+    display: flex;
+    width: 30%;
+    margin-top: 10px;
+    font-size: 18px;
+}
+.checkout_form input:focus {
+    height: 40px;
+    font-size: 18px;
+}
 
 /* ---------------  Responsive   ----------------------*/
 
@@ -544,88 +649,13 @@ tr, th {
     .product_item p {
         margin-top: -10px;
     }
-    /* ---------------  Shopping Cart Page ----------------------*/
-    /* .shopping_cart {
-        background-color: #FFBA0A;
-    }
-    .shopping_cart_title{
-        margin-top: -10px;
-        font-size: 60px;
-        color: black;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 20px;
     
-    }
-    .shopping_cart_item  {
-        width: 90%;
-        border-spacing: 35px 5px;
-        table-layout : fixed;
-        margin-left: auto;
-        margin-right: auto;
-        font-family: "Roboto", sans-serif;
-    }
-    .content-wrap_shopping_cart {
-        margin: 0 auto;
-        padding: 10px 0;
-        font-family: "Roboto", sans-serif;
-    }
-    .shopping_cart_item tr td {
-        border-collapse: separate;
-        border: 1px solid black;
-    }
-    tr, td {
-        padding: 15px;
-    }
-    tr {
-        text-align: right;
-    }
-    .incrementButton {
-        background-color: #342D1D;
-        color: #fff; 
-        padding: 5px 20px;
-        border-radius: 50px;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-    .decrementButton {
-        margin-left: 10px;
-        background-color: #342D1D;
-        color: #fff; 
-        padding: 5px 20px;
-        border-radius: 50px;
-        cursor: pointer;
-    }
-    .pay_button {
-        background-color: #342D1D;
-        color: #fff; 
-        padding: 15px 50px;
-        width: 20%;
-        border-radius: 0px;
-        cursor: pointer;
-        margin-top: 50px;
-        margin-bottom: 130px;
-        margin-left: 990px;
-    }
-    .shopping_cart_header {
-        margin: 80px;
-    }
-    .shopping_cart_header table {
-        width: 100%;
-        border-spacing: 35px 5px;
-        table-layout : fixed;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: -50px;
-    }
-    tr, th {
-        padding: 15px;
-    }
-    .shopping_cart_header th {
-        color: white;
-        background-color: black;
-        text-align: left;
-    }
-     */
+    /* TODO: RESPONSIVE DESIGN FOR SHOPPING CART PAGE, USER'S ORDER, AND CHECKOUT DETAILS */
+
+    /* ---------------  Shopping Cart Page ----------------------*/
+    
+    /* ---------------  User's order  ----------------------*/
+
+    /* ---------------  Checkout Details  ----------------------*/
     
 }

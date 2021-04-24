@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title>Checkout Details</title>
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'javascript/account_management.js' %}"></script>
+    <script src="{% static 'javascript/csrf.js' %}"></script>
+
+    <!-- CSS STYLE SHEETS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body class="shopping_cart"></body>
+    <!-- ***********************  NAVIGATION  *********************** -->
+    <header>
+        <div class="topnav">
+            <input type="text" placeholder="Search..">
+            <a id="signin-signout" class="active" href="/signin/">Sign in</a>
+            <a class="active" href="/">Home</a>
+        </div>
+    </header>
+    <section class="shoppingCart">
+    <div class="content-wrap">
+        <img src="{% static 'images/logo_grocery_white.png' %}" alt="GroceryChimp_Logo" class="logo">
+        <h1 class="shopping_cart_title">Checkout Details</h1>
+    </div>
+    </section>
+</body>
+<div class="content-wrap">
+         <div class="checkout">
+            <h2>Enter your card details</h2> 
+            <form class="checkout_form">
+                <label for="card_number">Card Number</label><br>
+                <input type="text" id="card_number" name="card_number" ><br>
+                <label for="expiration">Exp Date</label><br>
+                <input type="text" id="expiration" name="expiration" ><br>
+                <label for="cvv">CVV</label><br>
+                <input type="password" id="cvv" name="cvv" ><br>
+                <label for="address">Address</label><br>
+                <input type="text" id="address" name="address" ><br><br>
+            </form> 
+            <button type="button" class="checkout_btn">Checkout</button>
+        </div>
+        <!-- TODO:  DISPLAY ALL ITEMS THE PERSON IS BUYING  -->
+</div>
+</html>
