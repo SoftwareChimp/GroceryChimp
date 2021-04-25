@@ -161,25 +161,6 @@
                         // TODO: GET CURRENT DISPLAYED PRODUCTS AND QUANTITIES AND CREATE ORDERS
                         let cart = get_new_cart();
                         console.log(cart);
-                        /*
-                        $.ajax({
-                            url: window.location.pathname,
-                            type: 'POST',
-                            data: JSON.stringify({
-                                user: get_user()
-                            }),
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                                'X-CSRFToken': getCSRFToken()
-                            },
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            success: function(data) {
-                                console.log("success");
-                            }
-                        });
-                        */
                     };
                     document.body.appendChild(pay_button);
 

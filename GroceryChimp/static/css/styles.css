@@ -653,7 +653,39 @@ tr, th {
     /* TODO: RESPONSIVE DESIGN FOR SHOPPING CART PAGE, USER'S ORDER, AND CHECKOUT DETAILS */
 
     /* ---------------  Shopping Cart Page ----------------------*/
-    
+    .shopping_cart_title{
+        float: none;
+        font-size: 40px;
+        width: 100%;
+    }
+    .shopping_cart_header th {
+        font-size: xx-small;
+        width: 25%;
+    }
+    .shopping_cart table {
+        font-size: smaller;
+        border-spacing: unset;
+    }
+    .total_price {
+        font-size: smaller;
+    }
+    .total_msg {
+        font-size: smaller;
+    }
+    .incrementButton {
+        padding: 2px 2px;
+        margin-left: 5px;
+    }
+    .decrementButton {
+        margin-right: 5px; 
+        padding: 2px 2px;
+    }
+    .pay_button { 
+        padding: none;
+        width: 50%;
+        margin-right: 0px;
+    }
+
     /* ---------------  User's order  ----------------------*/
 
     /* ---------------  Checkout Details  ----------------------*/
