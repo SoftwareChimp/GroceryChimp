@@ -13,7 +13,7 @@ class Delivery(models.Model):
 class Driver(models.Model):
     driver_id = models.CharField(primary_key=True, max_length=5)
     driver_first = models.CharField(max_length=20, blank=True, null=True)
-    driver_last = models.CharField(max_length=20, blank=True, null=True) 
+    driver_last = models.CharField(max_length=20, blank=True, null=True)
     driver_email = models.CharField(max_length=30, blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     driver_phone = models.CharField(max_length=20, blank=True, null=True)
@@ -74,14 +74,15 @@ class Products(models.Model):
 
 
 class ShoppingCart(models.Model):
-    user_id = models.CharField(max_length=5)
+    user_id = models.CharField(primary_key=True, max_length=5)
     product_id = models.CharField(max_length=5)
+    store_id = models.CharField(max_length=5)
     quantity = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Shopping Cart'
-        unique_together = (('user_id', 'product_id'),)
+        unique_together = (('user_id', 'product_id', 'store_id'),)
 
 
 class Stores(models.Model):
@@ -214,6 +215,7 @@ class DjangoContentType(models.Model):
 
 
 class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     applied = models.DateTimeField()
 
