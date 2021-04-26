@@ -1,4 +1,4 @@
-from django.db import models #NEW - delete comment#
+from django.db import models
 
 
 class Delivery(models.Model):
@@ -74,7 +74,7 @@ class Products(models.Model):
 
 
 class ShoppingCart(models.Model):
-    user_id = models.CharField(primary_key=True, max_length=5)
+    user_id = models.CharField(max_length=5)
     product_id = models.CharField(max_length=5)
     quantity = models.IntegerField(blank=True, null=True)
 
