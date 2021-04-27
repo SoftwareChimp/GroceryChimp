@@ -711,5 +711,10 @@ tr, th {
     /* ---------------  User's order  ----------------------*/
 
     /* ---------------  Checkout Details  ----------------------*/
-    
+    .checkout{
+        width: 100%;
+    }
+    .checkout input {
+        width: 75%;
+    }
 }
