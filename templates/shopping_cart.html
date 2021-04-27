@@ -159,6 +159,7 @@
                     pay_button.className = 'pay_button';
                     pay_button.onclick = (e) => {
                         // TODO: GET CURRENT DISPLAYED PRODUCTS AND QUANTITIES AND CREATE ORDERS
+                        window.location = '/checkout/';
                         let cart = get_new_cart();
                         console.log(cart);
                     };

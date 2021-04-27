@@ -191,7 +191,7 @@ def checkout(request, *args, **kwargs):
     if request.method == "POST":
         return HttpResponse("{}")
     else:
-        return render(request, "contact.html", {})
+        return render(request, "checkout_details.html", {})
 
 
 def contact_view(request, *args, **kwargs):

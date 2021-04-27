@@ -475,9 +475,31 @@ tr, th {
 /* ---------------  Checkout Details  ----------------------*/
 .checkout{
     font-family: "Roboto", sans-serif;
+    border: 1px solid black;
+    background-color: #ffc42e;
+    text-align: center;
+    width: 40%;
+    padding: 10px;
+    margin: auto;
 }
 .checkout h2 {
     font-size: 40px;
+}
+.checkout label {
+    font-size: 20px;
+}
+.checkout input {
+    background-color: white;
+    height: 40px;
+    transition:height 1 s;
+    -webkit-transition:height 1 s;
+    border: 1px solid #504838;
+    display: block;
+    width: 40%;
+    margin-top: 10px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .checkout_btn {
     background-color: #342D1D;
@@ -492,12 +514,12 @@ tr, th {
 .checkout_form{
     font-size: 20px;
 }
-.checkout_form label{
+/*.checkout_form label{
 }
 .checkout_form input::placeholder {
     font-size: 18px;
-  }
-  .checkout_form input {
+}
+.checkout_form input {
     background-color: rgba(0,0,0,0);
     height: 40px;
     transition:height 1 s;
@@ -511,7 +533,7 @@ tr, th {
 .checkout_form input:focus {
     height: 40px;
     font-size: 18px;
-}
+}*/
 
 /* ---------------  Responsive   ----------------------*/
 
