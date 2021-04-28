@@ -18,21 +18,20 @@
 
 </head>
 <body class="shopping_cart"></body>
-    <!-- ***********************  NAVIGATION  *********************** -->
-    <header>
-        <div class="topnav">
-            <input type="text" placeholder="Search..">
-            <a id="signin-signout" class="active" href="/signin/">Sign in</a>
-            <a class="active" href="/">Home</a>
-        </div>
-    </header>
-    <section class="shoppingCart">
+<!-- ***********************  NAVIGATION  *********************** -->
+<header>
+    <div class="topnav">
+        <input type="text" placeholder="Search..">
+        <a id="signin-signout" class="active" href="/signin/">Sign in</a>
+        <a class="active" href="/">Home</a>
+    </div>
+</header>
+<section class="shoppingCart">
     <div class="content-wrap">
         <img src="{% static 'images/logo_grocery_white.png' %}" alt="GroceryChimp_Logo" class="logo">
         <h1 class="shopping_cart_title">Review List</h1>
     </div>
-    </section>
-</body>
+</section>
 <div class="content-wrap">
 <script>
     modify_sign_in();
@@ -158,10 +157,26 @@
                     pay_button.innerHTML = 'PAY NOW';
                     pay_button.className = 'pay_button';
                     pay_button.onclick = (e) => {
-                        // TODO: GET CURRENT DISPLAYED PRODUCTS AND QUANTITIES AND CREATE ORDERS
-                        window.location = '/checkout/';
-                        let cart = get_new_cart();
-                        console.log(cart);
+                        // UPDATE CART
+                        $.ajax({
+                            url: window.location.pathname,
+                            type: 'POST',
+                            data: JSON.stringify({
+                                user: get_user(),
+                                update: cart
+                            }),
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCSRFToken()
+                            },
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function(data) {
+                                // GO TO CHECKOUT PAGE
+                                window.location = '/checkout/';
+                            }
+                        });
                     };
                     document.body.appendChild(pay_button);
 
@@ -171,8 +186,30 @@
                     save_button.className = 'pay_button';
                     save_button.onclick = (e) => {
                         // TODO: GET CURRENT CART QUANTITIES AND UPDATE THEM IN USER'S SHOPPING CART
-                        let cart = get_new_cart();
-                        console.log(cart);
+                        let cart = {};
+                        for (let item of get_new_cart()) {
+                            cart[item["item_name"]] = item["quantity"];
+                        }
+                        $.ajax({
+                            url: window.location.pathname,
+                            type: 'POST',
+                            data: JSON.stringify({
+                                user: get_user(),
+                                update: cart
+                            }),
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCSRFToken()
+                            },
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function(data) {
+                                // REFRESH PAGE
+                                alert("Your Shopping Cart has been saved.");
+                                location.reload();
+                            }
+                        });
                     };
                     document.body.appendChild(save_button);
                 }

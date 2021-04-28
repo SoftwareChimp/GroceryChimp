@@ -161,28 +161,42 @@ def shopping_cart(request, *args, **kwargs):
     if request.method == 'POST':
         form = json.loads(request.body.decode('utf-8'))
 
-        # GET USER INFORMATION (IN FUTURE INCLUDE THIS IN COOKIE?)
-        form = json.loads(request.body.decode('utf-8'))["user"]
-        # user = User.objects.get(user_name__iexact=form["user_name"], user_password__iexact=form["user_password"])
+        if "update" in form:
+            # UPDATE USER'S SHOPPING CART WITH THE GIVEN QUANTITIES
+            updated_cart = form["update"]
+            # GET USER SHOPPING CART INFORMATION
+            user_cart = ShoppingCart.objects.filter(user_id__iexact=form["user"]["id"])
+            for cart_item in user_cart:
+                product = Products.objects.get(product_id__iexact=cart_item.product_id)
+                # UPDATE CART IF QUANTITY > 0, ELSE DELETE OBJECT FROM SHOPPING CART
+                if updated_cart[product.product_name] > 0:
+                    cart_item.quantity = updated_cart[product.product_name]
+                    cart_item.save()
+                else:
+                    cart_item.delete()
+            return HttpResponse("{}")
+        else:
+            # GET USER INFORMATION (IN FUTURE INCLUDE THIS IN COOKIE?)
+            form = json.loads(request.body.decode('utf-8'))["user"]
 
-        # GET USER SHOPPING CART INFORMATION
-        user_cart = ShoppingCart.objects.filter(user_id__iexact=form["id"])
+            # GET USER SHOPPING CART INFORMATION
+            user_cart = ShoppingCart.objects.filter(user_id__iexact=form["id"])
 
-        cart = []
-        for cart_item in user_cart:
-            product_id = cart_item.product_id
-            product = Products.objects.get(product_id__iexact=product_id)
-            entry = {
-                "name": product.product_name,
-                "quantity": cart_item.quantity,
-                "base_price": '%.2f' % product.price,
-                "total_price": '%.2f' % (product.price * cart_item.quantity)
-            }
-            cart.append(entry)
+            cart = []
+            for cart_item in user_cart:
+                product_id = cart_item.product_id
+                product = Products.objects.get(product_id__iexact=product_id)
+                entry = {
+                    "name": product.product_name,
+                    "quantity": cart_item.quantity,
+                    "base_price": '%.2f' % product.price,
+                    "total_price": '%.2f' % (product.price * cart_item.quantity)
+                }
+                cart.append(entry)
 
-        form["success"] = cart
+            form["success"] = cart
 
-        return HttpResponse(json.dumps(form))
+            return HttpResponse(json.dumps(form))
     else:
         return render(request, "shopping_cart.html", {})
 
