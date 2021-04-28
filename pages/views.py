@@ -176,7 +176,7 @@ def shopping_cart(request, *args, **kwargs):
                     cart_item.delete()
             return HttpResponse("{}")
         else:
-            # GET USER INFORMATION (IN FUTURE INCLUDE THIS IN COOKIE?)
+            # GET USER INFORMATION
             form = json.loads(request.body.decode('utf-8'))["user"]
 
             # GET USER SHOPPING CART INFORMATION
@@ -203,7 +203,27 @@ def shopping_cart(request, *args, **kwargs):
 
 def checkout(request, *args, **kwargs):
     if request.method == "POST":
-        return HttpResponse("{}")
+        # GET USER INFORMATION
+        form = json.loads(request.body.decode('utf-8'))["user"]
+
+        # GET USER SHOPPING CART INFORMATION
+        user_cart = ShoppingCart.objects.filter(user_id__iexact=form["id"])
+
+        cart = []
+        for cart_item in user_cart:
+            product_id = cart_item.product_id
+            product = Products.objects.get(product_id__iexact=product_id)
+            entry = {
+                "name": product.product_name,
+                "quantity": cart_item.quantity,
+                "base_price": '%.2f' % product.price,
+                "total_price": '%.2f' % (product.price * cart_item.quantity)
+            }
+            cart.append(entry)
+
+        form["success"] = cart
+
+        return HttpResponse(json.dumps(form))
     else:
         return render(request, "checkout_details.html", {})
 

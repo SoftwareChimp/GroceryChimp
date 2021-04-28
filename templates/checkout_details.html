@@ -30,7 +30,6 @@
         <h1 class="shopping_cart_title">Checkout Details</h1>
     </div>
     </section>
-</body>
 <div class="content-wrap">
          <div class="checkout">
             <h2>Enter your card details</h2> 
@@ -48,4 +47,101 @@
         </div>
         <!-- TODO:  DISPLAY ALL ITEMS THE PERSON IS BUYING  -->
 </div>
+<script>
+    modify_sign_in();
+    get_cart();
+    function get_cart() {
+        if (is_signed_in()) {
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: JSON.stringify({
+                    user: get_user()
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(data);
+                    // CREATE TABLE HEADER
+                    let table = document.createElement('table');
+                    table.className = "shopping_cart";
+                    let tr = document.createElement('tr');
+                    tr.className = "shopping_cart_header";
+                    let th = document.createElement('th');
+                    th.innerText = "Product";
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = "Price";
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = "Quantity";
+                    tr.appendChild(th);
+                    th = document.createElement('th');
+                    th.innerText = "Subtotal";
+                    tr.appendChild(th);
+                    table.appendChild(tr);
+
+                    // ITERATE THROUGH PRODUCTS
+                    let total = 0;
+                    for (let product of data["success"]) {
+                        tr = document.createElement('tr');
+                        tr.className = "shopping_cart_item";
+
+                        // PRODUCT NAME
+                        let td = document.createElement('td');
+                        td.innerText = product["name"];
+                        tr.appendChild(td);
+
+                        // PRODUCT PRICE PER ITEM
+                        td = document.createElement('td');
+                        td.innerText = "$" + product["base_price"];
+                        tr.appendChild(td);
+
+                        // PRODUCT QUANTITY
+                        td = document.createElement('td');
+                        let span = document.createElement('span');
+                        span.innerText = product["quantity"];
+                        td.appendChild(span);
+                        tr.appendChild(td);
+
+                        // PRODUCT SUBTOTAL
+                        td = document.createElement('td');
+                        td.innerText = "$" + product["total_price"];
+                        total += parseFloat(product["total_price"]);
+                        tr.appendChild(td);
+
+                        // ADD PRODUCT ROW TO TABLE
+                        table.appendChild(tr);
+                    }
+                    // APPEND TOTAL
+                    tr = document.createElement('tr');
+                    tr.className = "shopping_cart_total";
+                    td = document.createElement('td'); tr.appendChild(td); // SKIP PRODUCT
+                    td = document.createElement('td'); tr.appendChild(td); // SKIP PRICE
+                    td = document.createElement('td');
+                    td.innerText = "TOTAL"
+                    td.className = "total_msg"
+                    tr.appendChild(td);
+                    td = document.createElement('td');
+                    td.innerText = "$" + total.toFixed(2);
+                    td.className = "total_price"
+                    tr.appendChild(td);
+                    table.appendChild(tr);
+
+                    // ADD TABLE TO DOCUMENT
+                    document.body.append(table);
+                }
+            });
+        }
+        else {
+            // HIDE ELEMENTS IF NOT SIGNED IN
+            document.body.innerHTML += "<h2 class='notsignin_msg'>You are not signed in.</h2>";
+        }
+    }
+</script>
 </html>
