@@ -74,15 +74,14 @@ class Products(models.Model):
 
 
 class ShoppingCart(models.Model):
-    user_id = models.CharField(primary_key=True, max_length=5)
+    cart_id = models.AutoField(primary_key=True)
+    user_id = models.CharField(max_length=5)
     product_id = models.CharField(max_length=5)
-    store_id = models.CharField(max_length=5)
     quantity = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Shopping Cart'
-        unique_together = (('user_id', 'product_id', 'store_id'),)
 
 
 class Stores(models.Model):
@@ -234,12 +233,12 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class StoresdisplayStores(models.Model):
+class StoresdisplayStores(models.Model):       
     store_id = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)    
     address = models.TextField()
     nearby = models.IntegerField()
 
     class Meta:
         managed = False
-        db_table = 'storesdisplay_stores'
+        db_table = 'storesdisplay_stores' 
