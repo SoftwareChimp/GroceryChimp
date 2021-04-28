@@ -158,6 +158,10 @@
                     pay_button.className = 'pay_button';
                     pay_button.onclick = (e) => {
                         // UPDATE CART
+                        let cart = {};
+                        for (let item of get_new_cart()) {
+                            cart[item["item_name"]] = item["quantity"];
+                        }
                         $.ajax({
                             url: window.location.pathname,
                             type: 'POST',
@@ -185,7 +189,6 @@
                     save_button.innerHTML = 'SAVE CART';
                     save_button.className = 'pay_button';
                     save_button.onclick = (e) => {
-                        // TODO: GET CURRENT CART QUANTITIES AND UPDATE THEM IN USER'S SHOPPING CART
                         let cart = {};
                         for (let item of get_new_cart()) {
                             cart[item["item_name"]] = item["quantity"];
