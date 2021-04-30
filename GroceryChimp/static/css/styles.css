@@ -473,6 +473,27 @@ tr, th {
     font-size: 25px;
 }
 
+.rating-label {
+    font-size: 25px;
+}
+
+.ratings {
+    width: 200px;
+    font-size: 25px;
+}
+
+.rating-submit {
+    font-size: 15px;
+    color: #F7FFF7;
+    background: #342D1D;
+}
+
+.rating-submit:hover {
+    background:  #685B3B;
+    color: #fabc49;
+}
+
+
 /* ---------------  Checkout Details  ----------------------*/
 .checkout{
     font-family: "Roboto", sans-serif;
