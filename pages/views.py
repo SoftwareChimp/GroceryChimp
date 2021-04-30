@@ -221,7 +221,7 @@ def checkout(request, *args, **kwargs):
                 print("no payment entry")
                 # CREATE PAYMENT INFO ENTRY
                 PaymentInfo.objects.create(
-                    payment_id=("p" + str(0)),
+                    payment_id=("p" + str(len(PaymentInfo.objects.all()) + 1)),
                     user_id=form["user"]["id"],
                     card_company="",
                     card_number=form["checkout"]["payment"]["card_number"],
