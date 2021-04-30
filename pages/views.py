@@ -1,9 +1,11 @@
 import copy
 import json
 
+from datetime import datetime
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
-from storesdisplay.models import Stores, User, Inventory, Products, ShoppingCart
+from storesdisplay.models import Stores, User, Inventory, Products, ShoppingCart, PaymentInfo, Transactions
 
 
 # Create your views here.
@@ -203,33 +205,96 @@ def shopping_cart(request, *args, **kwargs):
 
 def checkout(request, *args, **kwargs):
     if request.method == "POST":
-        # GET USER INFORMATION
-        form = json.loads(request.body.decode('utf-8'))["user"]
+        form = json.loads(request.body.decode('utf-8'))
+        if "checkout" in form:
+            print("do checkout")
+            print(form)
+            # SAVE CREDIT CARD DETAILS
+            try:
+                payment = PaymentInfo.objects.get(user_id__iexact=form["user"]["id"])
+                # DETAILS EXIST, UPDATE
+                payment.card_number = form["checkout"]["payment"]["card_number"]
+                payment.expiration = form["checkout"]["payment"]["expiry_date"]
+                payment.card_ccv = form["checkout"]["payment"]["cvv"]
+                payment.save()
+            except ObjectDoesNotExist:
+                print("no payment entry")
+                # CREATE PAYMENT INFO ENTRY
+                PaymentInfo.objects.create(
+                    payment_id=("p" + str(0)),
+                    user_id=form["user"]["id"],
+                    card_company="",
+                    card_number=form["checkout"]["payment"]["card_number"],
+                    card_expiration=datetime.now(),
+                    card_ccv=form["checkout"]["payment"]["cvv"]
+                )
+                print("created payment info")
 
-        # GET USER SHOPPING CART INFORMATION
-        user_cart = ShoppingCart.objects.filter(user_id__iexact=form["id"])
+            # CREATE NEW TRANSACTION ENTRY (order_id === rating now btw)
+            Transactions.objects.create(
+                transaction_id=("p" + str(len(Transactions.objects.all()) + 1)),
+                user_id=form["user"]["id"],
+                order_id=0,
+                transaction_date=datetime.now(),
+                transaction_price=float(form["checkout"]["order"]["price"])
+            )
 
-        cart = []
-        for cart_item in user_cart:
-            product_id = cart_item.product_id
-            product = Products.objects.get(product_id__iexact=product_id)
-            entry = {
-                "name": product.product_name,
-                "quantity": cart_item.quantity,
-                "base_price": '%.2f' % product.price,
-                "total_price": '%.2f' % (product.price * cart_item.quantity)
+            # DELETE USER SHOPPING CART
+            user_cart = ShoppingCart.objects.filter(user_id__iexact=form["user"]["id"])
+            user_cart.delete()
+
+            # CHECKOUT SHOULD BE COMPLETE
+            return HttpResponse("{}")
+        else:
+            # GET USER INFORMATION
+            form = form["user"]
+
+            # GET USER SHOPPING CART INFORMATION
+            user_cart = ShoppingCart.objects.filter(user_id__iexact=form["id"])
+
+            cart = []
+            for cart_item in user_cart:
+                product_id = cart_item.product_id
+                product = Products.objects.get(product_id__iexact=product_id)
+                entry = {
+                    "name": product.product_name,
+                    "quantity": cart_item.quantity,
+                    "base_price": '%.2f' % product.price,
+                    "total_price": '%.2f' % (product.price * cart_item.quantity)
+                }
+                cart.append(entry)
+
+            form["success"] = {}
+            form["success"]["cart"] = cart
+
+            # GET USER ADDRESS
+            user = User.objects.get(user_id__iexact=form["id"])
+            form["success"]["address"] = user.user_address
+
+            # GET USER CREDIT CARD DETAILS
+            form["success"]["payment"] = {
+                "card_number": "",
+                "expiry_date": "",
+                "cvv": ""
             }
-            cart.append(entry)
+            try:
+                payment = PaymentInfo.objects.get(user_id__iexact=user.user_id)
+                form["success"]["payment"] = {
+                    "card_number": payment.card_number,
+                    "expiry_date": payment.card_expiration.strftime("%Y-%m-%d"),
+                    "cvv": payment.card_ccv
+                }
+            except ObjectDoesNotExist:
+                print("no payment set")
 
-        form["success"] = cart
-
-        return HttpResponse(json.dumps(form))
+            return HttpResponse(json.dumps(form))
     else:
         return render(request, "checkout_details.html", {})
 
 
 def contact_view(request, *args, **kwargs):
     return render(request, "contact.html", {})
+
 
 def orders(request, *args, **kwargs):
     return render(request, "users_order.html", {})

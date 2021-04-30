@@ -42,9 +42,9 @@
                 <label for="cvv">CVV</label><br>
                 <input type="password" id="cvv" name="cvv" placeholder="123"><br>
                 <label for="address">Address</label><br>
-                <input type="text" id="address" name="address" placeholder="123 Chimp Ave."><br><br>
+                <input type="text" id="address" name="address" placeholder="123 Chimp Ave." disabled><br><br>
             <!--</form>--> 
-            <button type="button" class="checkout_btn" onClick="location.href='/orders';">Checkout</button>
+            <button type="button" class="checkout_btn" onclick="checkout_button();">Checkout</button>
         </div>
         <!-- TODO:  DISPLAY ALL ITEMS THE PERSON IS BUYING  -->
 </div>
@@ -89,7 +89,7 @@
 
                     // ITERATE THROUGH PRODUCTS
                     let total = 0;
-                    for (let product of data["success"]) {
+                    for (let product of data["success"]["cart"]) {
                         tr = document.createElement('tr');
                         tr.className = "shopping_cart_item";
 
@@ -136,6 +136,14 @@
 
                     // ADD TABLE TO DOCUMENT
                     document.body.append(table);
+
+                    // SET CREDIT CARD DETAILS (IF IT EXISTS)
+                    document.getElementById("card_number").value = data["success"]["payment"]["card_number"];
+                    document.getElementById("expiration").value = data["success"]["payment"]["expiry_date"];
+                    document.getElementById("cvv").value = data["success"]["payment"]["cvv"];
+
+                    // SET USER ADDRESS
+                    document.getElementById("address").value = data["success"]["address"];
                 }
             });
         }
@@ -143,6 +151,45 @@
             // HIDE ELEMENTS IF NOT SIGNED IN
             document.body.innerHTML += "<h2 class='notsignin_msg'>You are not signed in.</h2>";
         }
+    }
+        function checkout_button() {
+        // CHECK FOR EMPTY FORM VALUES
+        if (document.getElementById("card_number").value === "" ||
+            document.getElementById("expiration").value === "" ||
+            document.getElementById("cvv").value === "") {
+            alert("Missing data from form.");
+        }
+        // COLLECT FORM DETAILS
+        form = {
+            payment: {
+                card_number: document.getElementById("card_number").value,
+                expiry_date: document.getElementById("expiration").value,
+                cvv: document.getElementById("cvv").value
+            },
+            order: {
+                date: Date.now(),
+                price: document.getElementsByClassName("shopping_cart_total")[0].children[3].innerText.substring(1)
+            }
+        }
+        $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: JSON.stringify({
+                    user: get_user(),
+                    checkout: form
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log("success");
+                    location.href = '/orders';
+                }
+            });
     }
 </script>
 </html>
