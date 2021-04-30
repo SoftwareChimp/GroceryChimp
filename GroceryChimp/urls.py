@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 # my stuff
-from pages.views import home_view, store_view, signin_view, signup_view, shopping_cart, checkout, contact_view
+from pages.views import home_view, store_view, signin_view, signup_view, shopping_cart, checkout, contact_view, orders
 
 urlpatterns = [
     path('', home_view, name='home'),
@@ -26,6 +26,7 @@ urlpatterns = [
     path('signup/', signup_view),
     path('shopping_cart/', shopping_cart),
     path('checkout/', checkout),
+    path('orders/', orders),
     path('contact/', contact_view,),
     path('admin/', admin.site.urls),
 ]

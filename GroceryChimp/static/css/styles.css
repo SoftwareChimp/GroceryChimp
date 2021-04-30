@@ -464,12 +464,13 @@ tr, th {
 .details{
     background-color: #FFBA0A;
     text-align: center;
+    font-family: "Roboto", sans-serif;
 }
 .details h2 {
     font-size: 40px;
 }
 .details p {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 /* ---------------  Checkout Details  ----------------------*/
@@ -514,27 +515,6 @@ tr, th {
 .checkout_form{
     font-size: 20px;
 }
-/*.checkout_form label{
-}
-.checkout_form input::placeholder {
-    font-size: 18px;
-}
-.checkout_form input {
-    background-color: rgba(0,0,0,0);
-    height: 40px;
-    transition:height 1 s;
-    -webkit-transition:height 1 s;
-    border: 1px solid #504838;
-    display: flex;
-    width: 30%;
-    margin-top: 10px;
-    font-size: 18px;
-}
-.checkout_form input:focus {
-    height: 40px;
-    font-size: 18px;
-}*/
-
 /* ---------------  Responsive   ----------------------*/
 
 @media screen and (max-width: 600px) {
@@ -671,8 +651,6 @@ tr, th {
     .product_item p {
         margin-top: -10px;
     }
-    
-    /* TODO: RESPONSIVE DESIGN FOR SHOPPING CART PAGE, USER'S ORDER, AND CHECKOUT DETAILS */
 
     /* ---------------  Shopping Cart Page ----------------------*/
     .shopping_cart_title{
@@ -707,9 +685,32 @@ tr, th {
         width: 50%;
         margin-right: 0px;
     }
+    .notsignin_msg {
+        font-size: 25px;
+    }
 
     /* ---------------  User's order  ----------------------*/
-
+    .users_order {
+        background-image: url(../images/groceryDriver.gif);
+        background-position:top;
+        background-repeat: no-repeat;
+    }
+    .users_order h1 {
+        text-align: left;
+        font-size: 50px;
+        margin-top: 5px;
+    }
+    .btn_link_to_order {
+        margin-top: -15px;
+        margin-right: 20px;
+    }
+    .details h2 {
+        font-size: 33px;
+    }
+    .details p {
+        font-size: 18px;
+    }
+    
     /* ---------------  Checkout Details  ----------------------*/
     .checkout{
         width: 100%;

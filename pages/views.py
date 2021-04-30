@@ -230,3 +230,6 @@ def checkout(request, *args, **kwargs):
 
 def contact_view(request, *args, **kwargs):
     return render(request, "contact.html", {})
+
+def orders(request, *args, **kwargs):
+    return render(request, "users_order.html", {})
