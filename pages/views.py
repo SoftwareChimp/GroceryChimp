@@ -1,5 +1,6 @@
 import copy
 import json
+import random
 
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
@@ -232,7 +233,7 @@ def checkout(request, *args, **kwargs):
 
             # CREATE NEW TRANSACTION ENTRY (order_id === rating now btw)
             Transactions.objects.create(
-                transaction_id=("p" + str(len(Transactions.objects.all()) + 1)),
+                transaction_id=("t" + str(len(Transactions.objects.all()) + 1)),
                 user_id=form["user"]["id"],
                 order_id=0,
                 transaction_date=datetime.now(),
@@ -297,4 +298,37 @@ def contact_view(request, *args, **kwargs):
 
 
 def orders(request, *args, **kwargs):
-    return render(request, "users_order.html", {})
+    if request.method == "POST":
+        form = json.loads(request.body.decode('utf-8'))
+        if "rating" in form:
+            print(form)
+            print("do rating")
+            transaction = Transactions.objects.get(transaction_id__iexact=form["rating"]["id"])
+            # USING order_id AS A RATING VALUE
+            transaction.order_id = form["rating"]["rating"]
+            transaction.save()
+
+            return HttpResponse("{}")
+        else:
+            print("get last order details")
+            # GET LAST TRANSACTION BY USER
+            transactions = Transactions.objects.filter(user_id__iexact=form["user"]["id"])
+            last_transaction = transactions[len(transactions) - 1]
+            print(last_transaction.transaction_id, last_transaction.transaction_price)
+
+            # GET A RANDOM DRIVER
+            drivers = User.objects.filter(permission__iexact=3)
+            driver = random.choice(drivers)
+
+            form["success"] = {
+                "id": last_transaction.transaction_id,
+                "date": last_transaction.transaction_date.strftime("%Y-%m-%d"),
+                "price": last_transaction.transaction_price,
+                "driver": {
+                    "first": driver.user_first,
+                    "last": driver.user_last
+                }
+            }
+            return HttpResponse(json.dumps(form))
+    else:
+        return render(request, "users_order.html", {})

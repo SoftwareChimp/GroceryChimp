@@ -8,6 +8,7 @@
     <!-- SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'javascript/account_management.js' %}"></script>
+    <script src="{% static 'javascript/csrf.js' %}"></script>
 
     <!-- CSS STYLE SHEETS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -34,25 +35,107 @@
         </section>
         <section class="details">
             <div class="content-wrap" id="order_details">
-                <h2>Order Details</h2>
+                <!--
                 <p>Transaction ID: </p>
                 <p> Transaction Date: </p>
                 <p> Transaction Price: </p>
                 <p> Your order is delivered by: <p>
                 <p> Driver's firstname/ Driver's lastname</p>
+                -->
+                <!-- TODO: LIST FOR FIVE STARS REVIEW -->
                 <h2>Please tell us how we did!</h2>
-                <!-- TODO: LIST FOR FIVE STARS REVIEW  -->
                 <label for="rating" class="rating-label">Rating:</label>
                 <select name="rating" class="ratings">
-                    <option value="poor">Poor</option>
-                    <option value="fair">Fair</option>
-                    <option value="good">Good</option>
-                    <option value="excellent">Excellent</option>
-                    <option value="outstanding">Outstanding</option>
+                    <option disabled selected>Choose a rating</option>
+                    <option value="1">Poor</option>
+                    <option value="2">Fair</option>
+                    <option value="3">Good</option>
+                    <option value="4">Excellent</option>
+                    <option value="5">Outstanding</option>
                 </select>
                 <br><br>
-            <div>
+                <h2>Order Details</h2>
+            </div>
         </section>
     </main>
 </body>
+<script>
+    modify_sign_in();
+    setup();
+    function setup() {
+        if (is_signed_in()) {
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: JSON.stringify({
+                    user: get_user()
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log("success", data);
+                    let details = document.getElementById("order_details");
+                    // TRANSACTION ID
+                    let e = document.createElement("p");
+                    e.innerText = "Transaction ID: " + data["success"]["id"];
+                    details.appendChild(e);
+
+                    // TRANSACTION DATE
+                    e = document.createElement("p");
+                    e.innerText = "Transaction Date: " + data["success"]["date"];
+                    details.appendChild(e);
+
+                    // TRANSACTION PRICE
+                    e = document.createElement("p");
+                    e.innerText = "Transaction Price: $" + data["success"]["price"];
+                    details.appendChild(e);
+
+                    // DELIVERY GUY
+                    e = document.createElement("p");
+                    e.innerText = "Your order is delivered by:";
+                    details.appendChild(e);
+                    e = document.createElement("p");
+                    e.innerText = data["success"]["driver"]["first"] + " " + data["success"]["driver"]["last"];
+                    details.appendChild(e);
+
+                    document.getElementsByClassName("ratings")[0].onchange = (event) => {
+                        console.log("hi", data);
+                        console.log(event.target.value);
+                        $.ajax({
+                            url: window.location.pathname,
+                            type: 'POST',
+                            data: JSON.stringify({
+                                user: get_user(),
+                                rating: {
+                                    rating: event.target.value,
+                                    id: data["success"]["id"]
+                                }
+                            }),
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCSRFToken()
+                            },
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function(data) {
+                                console.log("success rating");
+                                alert("Thank you for your rating!");
+                            }
+                        });
+                    };
+                }
+            });
+        }
+        else {
+            // HIDE ELEMENTS IF NOT SIGNED IN
+            document.body.innerHTML += "<h2 class='notsignin_msg'>You are not signed in.</h2>";
+        }
+    }
+</script>
 </html>
