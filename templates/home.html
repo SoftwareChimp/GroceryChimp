@@ -28,13 +28,13 @@
         </header>
              <div class="content-wrap">
                 <img src="{% static 'images/logo_grocery_white.png' %}" alt="GroceryChimp_Logo" class="logo">
-               <dov class="container" >
+               <div class="container" >
                     <h1>Welcome to Grocery Chimp Shopping!</h1>
                     <p>Grocery Chimp is a fast and convenient home delivery service for groceries and much more.</p>
                     <a href="#displayStores">
                         <div class="scroll-down"></div> 
                     </a>
-               </dov>
+               </div>
         </section>
 
         <section class="displayStores" id="displayStores">
@@ -50,9 +50,9 @@
                         <div class="flex-container">
                     {% endif %}
                     {% endifequal %}
-                    <div style="cursor: pointer;" onclick="window.location='/stores/{{store.store_id}}'";>
-                        <h2>{{store.store_name}}</h2>
-                        <p>{{store.store_address}}</p>
+                    <div style="cursor: pointer; background-image: url('../static/images/storefront_images/{{store.store_id}}.png'); background-size: cover;" onclick="window.location='/stores/{{store.store_id}}'";>
+                        <h2 style="backdrop-filter: blur(10px) contrast(0.5) brightness(2.0); border-radius: 5px;">{{store.store_name}}</h2>
+                        <p style="backdrop-filter: blur(10px) contrast(0.5) brightness(2.0); border-radius: 5px;">{{store.store_address}}</p>
                     </div>
                 {% endfor %}
                 </div>
