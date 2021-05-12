@@ -59,6 +59,7 @@ def store_view(request, *args, **kwargs):
     else:
         store = Stores.objects.get(store_id__iexact=kwargs["store_id"])
         context = {
+            "store_id": store.store_id,
             "store_name": store.store_name,
             "store_address": store.store_address,
             "best_sellers": [],
