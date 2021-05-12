@@ -277,7 +277,8 @@ body .home_page{
 /* ---------------  Display Product Items  ----------------------*/
 .product_items img{
     margin-top: 0;
-    width: 228.78px;
+    /*width: 228.78px;*/
+    width: 100%;
     height: 152.7px;
 }
 .product_items h4 {
@@ -577,6 +578,10 @@ tr, th {
     .displayStores h1{
         font-size: 40px;
     }
+    /*This affects Best Sellers*/
+    .flex-container {
+        overflow: auto;
+    }
     .flex-container h2 {
         font-size: 19px;
     }
@@ -637,7 +642,7 @@ tr, th {
     }
      /* ---------------  Display Product Items  ----------------------*/
      .product_items img{
-        width: 224.78px;
+        width: 100%;
         height: 150.7px;
         margin-bottom: -40px;
     }
